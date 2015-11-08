@@ -58,17 +58,17 @@ final class SubscribeMapper extends AbstractMapper implements SubscribeMapperInt
     }
 
     /**
-     * Fetch all by page
+     * Fetches all subscribers filtered by pagination
      * 
-     * @param integer $page
-     * @param integer $itemsPerPage
+     * @param integer $page Current page number
+     * @param integer $itemsPerPage Per page count
      * @return array
      */
     public function fetchAllByPage($page, $itemsPerPage)
     {
         return $this->db->select('*')
                         ->from(self::getTableName())
-                        ->where('langId', '=', $this->getLangId())
+                        ->whereEquals('langId', $this->getLangId())
                         ->paginate($page, $itemsPerPage)
                         ->queryAll();
     }
