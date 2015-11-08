@@ -79,27 +79,10 @@ final class SubscribeMapper extends AbstractMapper implements SubscribeMapperInt
      */
     public function fetchAllByPage($page, $itemsPerPage)
     {
-        $this->paginator->setItemsPerPage($itemsPerPage)
-                        ->setTotalAmount($this->countAll())
-                        ->setCurrentPage($page);
-        
         return $this->db->select('*')
                         ->from($this->table)
                         ->where('langId', '=', $this->getLangId())
+                        ->paginate($page, $itemsPerPage)
                         ->queryAll();
     }
-
-    /**
-     * Count all records
-     * 
-     * @return integer
-     */
-    private function countAll()
-    {
-        return $this->db->select()
-                        ->count('id', 'count')
-                        ->from($this->table)
-                        ->where('langId', '=', $this->getLangId())
-                        ->query('count');
-    }   
 }
