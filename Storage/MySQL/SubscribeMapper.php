@@ -54,17 +54,14 @@ final class SubscribeMapper extends AbstractMapper implements SubscribeMapperInt
     }
 
     /**
-     * Deletes a record by its associated id
+     * Deletes a subscriber by associated id
      * 
      * @param string $id
      * @return boolean
      */
     public function deleteById($id)
     {
-        return $this->db->delete()
-                        ->from($this->table)
-                        ->where('id', '=', $id)
-                        ->execute();
+        return $this->deleteByPk($id);
     }
 
     /**
