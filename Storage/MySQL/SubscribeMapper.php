@@ -68,7 +68,7 @@ final class SubscribeMapper extends AbstractMapper implements SubscribeMapperInt
     {
         return $this->db->select('*')
                         ->from(self::getTableName())
-                        ->whereEquals('langId', $this->getLangId())
+                        ->whereEquals('lang_id', $this->getLangId())
                         ->paginate($page, $itemsPerPage)
                         ->queryAll();
     }
