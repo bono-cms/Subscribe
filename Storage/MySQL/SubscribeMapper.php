@@ -14,9 +14,6 @@ namespace Subscribe\Storage\MySQL;
 use Cms\Storage\MySQL\AbstractMapper;
 use Subscribe\Storage\SubscribeMapperInterface;
 
-/**
- * Abstracts table access
- */
 final class SubscribeMapper extends AbstractMapper implements SubscribeMapperInterface
 {
     /**
