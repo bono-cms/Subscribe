@@ -11,7 +11,7 @@
 
 namespace Subscribe\Controller\Admin;
 
-use Admin\Controller\Admin\AbstractController;
+use Cms\Controller\Admin\AbstractController;
 
 final class Browser extends AbstractController
 {

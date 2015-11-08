@@ -11,7 +11,7 @@
 
 namespace Subscribe\Storage\MySQL;
 
-use Admin\Storage\MySQL\AbstractMapper;
+use Cms\Storage\MySQL\AbstractMapper;
 use Subscribe\Storage\SubscribeMapperInterface;
 
 /**
