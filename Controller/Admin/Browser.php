@@ -29,6 +29,7 @@ final class Browser extends AbstractController
         $paginator->setUrl('/admin/module/subscribe/page/%s');
 
         return $this->view->render('browser', array(
+            'title' => 'Subscribes',
             'breadcrumbs' => array(
                 '#' => 'Subscribe',
             ),
