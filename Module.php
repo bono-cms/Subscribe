@@ -16,16 +16,16 @@ use Subscribe\Service\SubscribeManager;
 
 final class Module extends AbstractCmsModule
 {
-	/**
-	 * {@inheritDoc}
-	 */
-	public function getServiceProviders()
-	{
-		$subscribeMapper = $this->getMapper('/Subscribe/Storage/MySQL/SubscribeMapper');
-		$subscribeManager = new SubscribeManager($subscribeMapper);
+    /**
+     * {@inheritDoc}
+     */
+    public function getServiceProviders()
+    {
+        $subscribeMapper = $this->getMapper('/Subscribe/Storage/MySQL/SubscribeMapper');
+        $subscribeManager = new SubscribeManager($subscribeMapper);
 
-		return array(
-			'subscribeManager' => $subscribeManager
-		);
-	}
+        return array(
+            'subscribeManager' => $subscribeManager
+        );
+    }
 }
