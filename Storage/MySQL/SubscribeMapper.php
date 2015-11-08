@@ -43,17 +43,14 @@ final class SubscribeMapper extends AbstractMapper implements SubscribeMapperInt
     }
 
     /**
-     * Fetches a record by its associated id
+     * Fetches a subscriber by associated id
      * 
      * @param string $id
      * @return array
      */
     public function fetchById($id)
     {
-        return $this->db->select('*')
-                        ->from($this->table)
-                        ->where('id', '=', $id)
-                        ->query();
+        return $this->findByPk($id);
     }
 
     /**
