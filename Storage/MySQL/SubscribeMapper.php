@@ -25,21 +25,14 @@ final class SubscribeMapper extends AbstractMapper implements SubscribeMapperInt
     protected $table = 'bono_module_subscribers';
 
     /**
-     * Inserts a record
+     * Adds a subscriber
      * 
-     * @param stdclass $container
+     * @param array $input Raw data to be inserted
      * @return boolean
      */
-    public function insert(stdclass $container)
+    public function insert(array $input)
     {
-        return $this->db->insert($this->table, array(
-            
-            'langId'    => $this->getLangId(),
-            'email'     => $container->email,
-            'timestamp' => $container->timestamp,
-            'active'    => $container->active,
-            
-        ))->execute();
+        return $this->persist($this->getWithLang($input));
     }
 
     /**
