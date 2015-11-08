@@ -22,7 +22,10 @@ final class SubscribeMapper extends AbstractMapper implements SubscribeMapperInt
     /**
      * {@inheritDoc}
      */
-    protected $table = 'bono_module_subscribers';
+    public static function getTableName()
+    {
+        return 'bono_module_subscribers';
+    }
 
     /**
      * Adds a subscriber
@@ -67,7 +70,7 @@ final class SubscribeMapper extends AbstractMapper implements SubscribeMapperInt
     public function fetchAllByPage($page, $itemsPerPage)
     {
         return $this->db->select('*')
-                        ->from($this->table)
+                        ->from(self::getTableName())
                         ->where('langId', '=', $this->getLangId())
                         ->paginate($page, $itemsPerPage)
                         ->queryAll();
