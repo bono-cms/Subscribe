@@ -12,6 +12,7 @@
 namespace Subscribe\Controller\Admin;
 
 use Cms\Controller\Admin\AbstractController;
+use Krystal\Stdlib\VirtualEntity;
 
 final class Add extends AbstractController
 {
@@ -23,7 +24,8 @@ final class Add extends AbstractController
     public function indexAction()
     {
         return $this->view->render('form', array(
-            'title' => 'Add a new subscriber'
+            'title' => 'Add a new subscriber',
+            'subscriber' => new VirtualEntity()
         ));
     }
 
