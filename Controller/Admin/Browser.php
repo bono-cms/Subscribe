@@ -16,26 +16,26 @@ use Cms\Controller\Admin\AbstractController;
 final class Browser extends AbstractController
 {
     /**
-     * Shows a table
+     * Displays a grid
      * 
-     * @param integer $page
+     * @param integer $page Current page number
      * @return string
      */
     public function indexAction($page = 1)
     {
+        // Append a breadcrumb
+        $this->view->getBreadcrumbBag()
+                   ->addOne('Subscribe');
+
         $subscribeManager = $this->getModuleService('subscribeManager');
 
         $paginator = $subscribeManager->getPaginator();
-        $paginator->setUrl('/admin/module/subscribe/page/%s');
+        $paginator->setUrl('/admin/module/subscribe/page/(:var)');
 
         return $this->view->render('browser', array(
             'title' => 'Subscribes',
-            'breadcrumbs' => array(
-                '#' => 'Subscribe',
-            ),
-            
-            'subscribers' => $subscribeManager->fetchAllByPage($page, 10),
-            'paginator' => $paginator,
+            'subscribers' => $subscribeManager->fetchAllByPage($page, $this->getSharedPerPageCount()),
+            'paginator' => $paginator
         ));
     }
 
