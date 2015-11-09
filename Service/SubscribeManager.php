@@ -12,21 +12,24 @@
 namespace Subscribe\Service;
 
 use Cms\Service\AbstractManager;
+use Subscribe\Storage\SubscribeMapperInterface;
 
 final class SubscribeManager extends AbstractManager
 {
     /**
-     * @var SubcribeMapperInterface
+     * Any-compliant subscribe mapper
+     * 
+     * @var \Subscribe\Storage\SubcribeMapperInterface
      */
     private $subscribeMapper;
 
     /**
      * State initialization
      * 
-     * @param SubcribeMapperInterface $subscribeMapper Any adapter that implements this interface
+     * @param \Subscribe\Storage\SubscribeMapperInterface $subscribeMapper
      * @return void
      */
-    public function __construct($subscribeMapper)
+    public function __construct(SubscribeMapperInterface $subscribeMapper)
     {
         $this->subscribeMapper = $subscribeMapper;
     }
