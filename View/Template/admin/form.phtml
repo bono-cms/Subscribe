@@ -5,26 +5,25 @@ use Krystal\Form\Element;
 ?>
 <form>
 	<div class="well clearfix">
-        
+
         <?php echo Element::hidden('id', $subscriber->getId()); ?>
-        
+
 		<div class="form-group clearfix">
 			<label class="col-lg-2 control-label"><?php $this->show('Name'); ?></label>
 			<div class="col-lg-10">
 				<?php echo Element::text('name', $subscriber->getName(), array('class' => 'form-control')); ?>
 			</div>
 		</div>
-		
+
 		<div class="form-group clearfix">
 			<label class="col-lg-2 control-label"><?php $this->show('Email'); ?></label>
 			<div class="col-lg-10">
 				<?php echo Element::text('email', $subscriber->getEmail(), array('class' => 'form-control')); ?>
 			</div>
 		</div>
-		
 	</div>
-	
+
 	<button class="btn btn-primary"><i class="glyphicon glyphicon-floppy-save"></i> <?php echo $this->translate('Save'); ?></button>
 	<button class="btn btn-default"><i class="glyphicon glyphicon-floppy-open"></i> <?php echo $this->translate('Cancel'); ?></button>
-	
+
 </form>
