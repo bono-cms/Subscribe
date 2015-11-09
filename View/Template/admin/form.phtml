@@ -1,17 +1,24 @@
+<?php
 
+use Krystal\Form\Element;
+
+?>
 <form>
 	<div class="well clearfix">
+        
+        <?php echo Element::hidden('id', $subscriber->getId()); ?>
+        
 		<div class="form-group clearfix">
 			<label class="col-lg-2 control-label"><?php $this->show('Name'); ?></label>
 			<div class="col-lg-10">
-				<input type="text" name="name" class="form-control" />
+				<?php echo Element::text('name', $subscriber->getName(), array('class' => 'form-control')); ?>
 			</div>
 		</div>
 		
 		<div class="form-group clearfix">
 			<label class="col-lg-2 control-label"><?php $this->show('Email'); ?></label>
 			<div class="col-lg-10">
-				<input type="text" name="email" class="form-control" />
+				<?php echo Element::text('email', $subscriber->getEmail(), array('class' => 'form-control')); ?>
 			</div>
 		</div>
 		
