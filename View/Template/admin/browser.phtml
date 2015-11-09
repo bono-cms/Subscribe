@@ -1,3 +1,9 @@
+<?php
+
+use Krystal\Form\Element;
+
+?>
+
 <div class="btn-toolbar">
 	<div class="btn-group">
 	  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
@@ -36,11 +42,7 @@
 				<td><?php echo $page->id; ?></td>
 				<td><?php echo $page->title; ?></td>
 				<td>
-					<?php if ($page->default): ?>
-					<input type="radio" name="default" value="<?php echo $page->id; ?>" checked="checked" />
-					<?php else: ?>
-					<input type="radio" name="default" value="<?php echo $page->id; ?>" />
-					<?php endif; ?>
+					<?php echo Element::radio('default', $page->id, $page->default); ?>
 				</td>
 				<td>
 					<a class="view" href="<?php printf('/%s/', $page->slug); ?>"></a>
