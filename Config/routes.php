@@ -12,5 +12,9 @@
 return array(
     '/admin/module/subscribe' => array(
         'controller' => 'Admin:Browser@indexAction'
+    ),
+    
+    '/admin/module/subscribe/add' => array(
+        'controller' => 'Admin:Add@indexAction'
     )
 );
