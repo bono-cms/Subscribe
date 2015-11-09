@@ -11,17 +11,20 @@
 
 namespace Subscribe\Controller\Admin;
 
-final class Add extends AbstractSubscriber
+use Cms\Controller\Admin\AbstractController;
+
+final class Add extends AbstractController
 {
     /**
-     * Default action
+     * Displays the adding form
      * 
      * @return string
      */
     public function indexAction()
     {
-        return $this->view->render($this->getTemplatePath(), $this->getSharedVars(array(
-        )));
+        return $this->view->render('form', array(
+            'title' => 'Add a new subscriber'
+        ));
     }
 
     /**
