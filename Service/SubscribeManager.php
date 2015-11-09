@@ -42,9 +42,9 @@ final class SubscribeManager extends AbstractManager
     }
 
     /**
-     * Returns paginator instance
+     * Returns prepared pagination instance
      * 
-     * @return Paginator
+     * @return \Krystal\Paginate\Paginator
      */
     public function getPaginator()
     {
