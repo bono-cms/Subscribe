@@ -16,5 +16,13 @@ return array(
     
     '/admin/module/subscribe/add' => array(
         'controller' => 'Admin:Add@indexAction'
+    ),
+    
+    '/admin/module/subscribe/send' => array(
+        'controller' => 'Admin:Send@indexAction'
+    ),
+
+    '/admin/module/subscribe/send.ajax' => array(
+        'controller' => 'Admin:Send@sendAction'
     )
 );
