@@ -11,17 +11,18 @@
 
 namespace Subscribe\Controller\Admin;
 
-final class Edit extends AbstractSubcriber
+final class Edit extends AbstractSubscriber
 {
     /**
      * Shows edit form
      * 
+     * @param string $id Subscriber's id
      * @return string
      */
-    public function indexAction()
+    public function indexAction($id)
     {
-        return $this->view->render($this->getTemplatePath(), $this->getSharedVars(array(
-        )));
+        return $this->view->render('form', array(
+        ));
     }
 
     /**
