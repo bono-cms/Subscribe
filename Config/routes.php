@@ -17,6 +17,18 @@ return array(
     '/admin/module/subscribe/add' => array(
         'controller' => 'Admin:Add@indexAction'
     ),
+
+    '/admin/module/subscribe/add.ajax' => array(
+        'controller' => 'Admin:Add@addAction'
+    ),
+    
+    '/admin/module/subscribe/edit/(:var)' => array(
+        'controller' => 'Admin:Edit@indexAction'
+    ),
+    
+    '/admin/module/subscribe/edit.ajax' => array(
+        'controller' => 'Admin:Edit@updateAction'
+    ),
     
     '/admin/module/subscribe/send' => array(
         'controller' => 'Admin:Send@indexAction'
