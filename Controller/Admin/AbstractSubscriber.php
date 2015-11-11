@@ -13,6 +13,6 @@ namespace Subscribe\Controller\Admin;
 
 use Cms\Controller\Admin\AbstractController;
 
-final class AbstractSubscriber extends AbstractController
+abstract class AbstractSubscriber extends AbstractController
 {
 }
