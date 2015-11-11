@@ -55,6 +55,13 @@ use Krystal\Form\Element;
 		</tbody>
 		<?php endif; ?>
 	</table>
+
+    <?php if (empty($subscribers)): ?>
+    <div class="center-block">
+        <h2 class="text-center text-muted"><i class="glyphicon glyphicon-remove"></i> <?php $this->show('You have no subscribers'); ?></h2>
+    </div>
+    <?php endif; ?>
+    
 </form>
 
 <?php $this->loadBlock('paginator'); ?>
