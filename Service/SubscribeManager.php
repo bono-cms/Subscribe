@@ -64,7 +64,7 @@ final class SubscribeManager extends AbstractManager
     }
 
     /**
-     * Adds a record
+     * Adds a subscriber
      * 
      * @param array $input
      * @return boolean
