@@ -71,6 +71,10 @@ final class SubscribeManager extends AbstractManager
      */
     public function add(array $input)
     {
+        // Defaults
+        $input['active'] = '0';
+        $input['timestamp'] = time();
+
         return $this->subscribeMapper->insert($input);
     }
 
