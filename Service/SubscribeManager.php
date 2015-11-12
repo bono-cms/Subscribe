@@ -13,6 +13,7 @@ namespace Subscribe\Service;
 
 use Cms\Service\AbstractManager;
 use Subscribe\Storage\SubscribeMapperInterface;
+use Krystal\Stdlib\VirtualEntity;
 
 final class SubscribeManager extends AbstractManager
 {
@@ -39,6 +40,13 @@ final class SubscribeManager extends AbstractManager
      */
     protected function toEntity(array $record)
     {
+        $entity = new VirtualEntity();
+        $entity->setId($record['id'])
+               ->setName($record['name'])
+               ->setEmail($record['email'])
+               ->setActive($record['active']);
+
+        return $entity;
     }
 
     /**
