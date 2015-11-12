@@ -23,7 +23,7 @@ final class Add extends AbstractSubscriber
     public function indexAction()
     {
         return $this->view->render('form', array(
-            'title' => 'Add a new subscriber',
+            'title' => 'Add new subscriber',
             'subscriber' => new VirtualEntity()
         ));
     }
