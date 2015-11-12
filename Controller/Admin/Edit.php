@@ -21,8 +21,20 @@ final class Edit extends AbstractSubscriber
      */
     public function indexAction($id)
     {
-        return $this->view->render('form', array(
-        ));
+        $subscribeManager = $this->getModuleService('subscribeManager');
+        $subscriber = $subscribeManager->fetchById($id);
+
+        if ($subscriber !== false) {
+
+            $this->loadBreadcrumbs('Edit the subscriber');
+            return $this->view->render('form', array(
+                'subscriber' => $subscriber,
+                'title' => 'Edit the subscriber'
+            ));
+
+        } else {
+            return false;
+        }
     }
 
     /**
