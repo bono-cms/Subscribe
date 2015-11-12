@@ -6,19 +6,19 @@ use Krystal\Form\Element;
 <form>
 	<div class="well clearfix">
 
-        <?php echo Element::hidden('id', $subscriber->getId()); ?>
+        <?php echo Element::hidden('subscriber[id]', $subscriber->getId()); ?>
 
 		<div class="form-group clearfix">
 			<label class="col-lg-2 control-label"><?php $this->show('Name'); ?></label>
 			<div class="col-lg-10">
-				<?php echo Element::text('name', $subscriber->getName(), array('class' => 'form-control')); ?>
+				<?php echo Element::text('subscriber[name]', $subscriber->getName(), array('class' => 'form-control')); ?>
 			</div>
 		</div>
 
 		<div class="form-group clearfix">
 			<label class="col-lg-2 control-label"><?php $this->show('Email'); ?></label>
 			<div class="col-lg-10">
-				<?php echo Element::text('email', $subscriber->getEmail(), array('class' => 'form-control')); ?>
+				<?php echo Element::text('subscriber[email]', $subscriber->getEmail(), array('class' => 'form-control')); ?>
 			</div>
 		</div>
 	</div>
