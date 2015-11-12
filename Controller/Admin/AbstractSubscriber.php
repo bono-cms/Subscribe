@@ -34,4 +34,16 @@ abstract class AbstractSubscriber extends AbstractController
             )
         ));
     }
+
+    /**
+     * Loads breadcrumbs
+     * 
+     * @param string $title
+     * @return void
+     */
+    final protected function loadBreadcrumbs($title)
+    {
+        $this->view->getBreadcrumbBag()->addOne('Subscribe', 'Subscribe:Admin:Browser@indexAction')
+                                       ->addOne($title);
+    }
 }
