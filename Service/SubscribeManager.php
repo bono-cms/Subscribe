@@ -42,6 +42,16 @@ final class SubscribeManager extends AbstractManager
     }
 
     /**
+     * Returns last subscriber's id
+     * 
+     * @return integer
+     */
+    public function getLastId()
+    {
+        return $this->subscribeMapper->getLastId();
+    }
+
+    /**
      * Returns prepared pagination instance
      * 
      * @return \Krystal\Paginate\Paginator
