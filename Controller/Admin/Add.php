@@ -22,6 +22,8 @@ final class Add extends AbstractSubscriber
      */
     public function indexAction()
     {
+        $this->loadBreadcrumbs('Add new subscriber');
+
         return $this->view->render('form', array(
             'title' => 'Add new subscriber',
             'subscriber' => new VirtualEntity()
