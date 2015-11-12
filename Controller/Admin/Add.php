@@ -35,14 +35,12 @@ final class Add extends AbstractSubscriber
      */
     public function addAction()
     {
-        if ($this->request->isPost() && $this->request->isAjax()) {
-            $formValidator = $this->getValidator($this->request->getPost('subscriber'));
+        $formValidator = $this->getValidator($this->request->getPost('subscriber'));
 
-            if ($formValidator->isValid()) {
-                
-            } else {
-                return $formValidator->getErrors();
-            }
+        if ($formValidator->isValid()) {
+            
+        } else {
+            return $formValidator->getErrors();
         }
     }
 }
