@@ -128,4 +128,21 @@ final class SubscribeManager extends AbstractManager
     {
         return $this->subscribeMapper->deleteById($id);
     }
+
+    /**
+     * Removes subscribers by their associated ids
+     * 
+     * @param array $ids
+     * @return boolean
+     */
+    public function deleteByIds(array $ids)
+    {
+        foreach ($ids as $id) {
+            if (!$this->subscribeMapper->deleteById($id)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
 }
