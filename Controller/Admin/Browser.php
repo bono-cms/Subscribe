@@ -44,7 +44,7 @@ final class Browser extends AbstractController
     }
 
     /**
-     * Deletes a record by its associated id
+     * Deletes a subscriber by their associated id
      * 
      * @return string
      */
