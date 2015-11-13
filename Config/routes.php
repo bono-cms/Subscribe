@@ -40,5 +40,9 @@ return array(
 
     '/admin/module/subscribe/send.ajax' => array(
         'controller' => 'Admin:Send@sendAction'
+    ),
+    
+    '/admin/module/subscribe/delete.ajax' => array(
+        'controller' => 'Admin:Browser@deleteAction'
     )
 );

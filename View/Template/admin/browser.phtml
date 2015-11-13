@@ -52,7 +52,7 @@ use Krystal\Form\Element;
 				</td>
 				<td class="text-center">
 					<a data-button="edit" href="<?php echo $this->url('Subscribe:Admin:Edit@indexAction', $subscriber->getId()); ?>"><i class="glyphicon glyphicon-pencil"></i></a>
-					<a data-button="delete" href="#"><i class="glyphicon glyphicon-remove"></i></a>
+					<a data-button="delete" data-id="<?php echo $subscriber->getId(); ?>" data-category="main" href="#"><i class="glyphicon glyphicon-remove"></i></a>
 				</td>
 			</tr>
 			<?php endforeach; ?>
