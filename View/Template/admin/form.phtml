@@ -12,7 +12,7 @@ use Krystal\Form\Element;
 			<label class="col-lg-2 control-label"><?php $this->show('Name'); ?></label>
 			<div class="col-lg-10">
                 <div class="input-group">
-                    <?php echo Element::text('subscriber[name]', $subscriber->getName(), array('class' => 'form-control')); ?>
+                    <?php echo Element::text('subscriber[name]', $subscriber->getName(), array('class' => 'form-control', 'placeholder' => $this->translate('Type person name'))); ?>
                     <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
                 </div>
 			</div>
@@ -22,7 +22,7 @@ use Krystal\Form\Element;
 			<label class="col-lg-2 control-label"><?php $this->show('Email'); ?></label>
 			<div class="col-lg-10">
                 <div class="input-group">
-                    <?php echo Element::text('subscriber[email]', $subscriber->getEmail(), array('class' => 'form-control')); ?>
+                    <?php echo Element::text('subscriber[email]', $subscriber->getEmail(), array('class' => 'form-control', 'placeholder' => $this->translate('Type their associated email'))); ?>
                     <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
                 </div>
 			</div>
