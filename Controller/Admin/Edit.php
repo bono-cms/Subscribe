@@ -38,7 +38,7 @@ final class Edit extends AbstractSubscriber
     }
 
     /**
-     * Updates a record
+     * Updates a subscriber
      * 
      * @return string
      */
