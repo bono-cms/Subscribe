@@ -44,7 +44,18 @@ final class Edit extends AbstractSubscriber
      */
     public function updateAction()
     {
-        if ($this->request->isPost() && $this->request->isAjax()) {
+        $formValidator = $this->getValidator($this->request->getPost('subscriber'));
+
+        if ($formValidator->isValid()) {
+            $subscribeManager = $this->getModuleService('subscribeManager');
+
+            if ($subscribeManager->update($this->request->getPost('subscriber'))) {
+                $this->flashBag->set('success', 'The subscriber has been updated successfully');
+                return '1';
+            }
+
+        } else {
+            return $formValidator->getErrors();
         }
     }
 }
