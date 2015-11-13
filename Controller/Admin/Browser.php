@@ -51,6 +51,13 @@ final class Browser extends AbstractController
     public function deleteAction()
     {
         if ($this->request->isPost() && $this->request->isAjax()) {
+            $id = $this->request->getPost('id');
+
+            $subscribeManager = $this->getModuleService('subscribeManager');
+            $subscribeManager->deleteById($id);
+
+            $this->flashBag->set('success', 'A subscriber has been removed successfully');
+            return '1';
         }
     }
 
