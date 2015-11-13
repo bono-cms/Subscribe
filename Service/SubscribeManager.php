@@ -97,6 +97,17 @@ final class SubscribeManager extends AbstractManager
     }
 
     /**
+     * Updates a subscriber
+     * 
+     * @param array $input Raw input data
+     * @return boolean
+     */
+    public function update(array $input)
+    {
+        return $this->subscribeMapper->update($input);
+    }
+
+    /**
      * Fetches a record by its id
      * 
      * @param string $id
@@ -116,16 +127,5 @@ final class SubscribeManager extends AbstractManager
     public function deleteById($id)
     {
         return $this->subscribeMapper->deleteById($id);
-    }
-
-    /**
-     * Updates a record
-     * 
-     * @param array $input
-     * @return boolean
-     */
-    public function update(array $input)
-    {
-        return $this->subscribeMapper->update($array);
     }
 }
