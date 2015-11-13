@@ -25,6 +25,17 @@ final class SubscribeMapper extends AbstractMapper implements SubscribeMapperInt
     }
 
     /**
+     * Updates a subscriber
+     * 
+     * @param array $input Raw input data
+     * @return boolean
+     */
+    public function update(array $input)
+    {
+        return $this->persist($input);
+    }
+
+    /**
      * Adds a subscriber
      * 
      * @param array $input Raw data to be inserted
