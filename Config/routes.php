@@ -44,5 +44,9 @@ return array(
     
     '/admin/module/subscribe/delete.ajax' => array(
         'controller' => 'Admin:Browser@deleteAction'
+    ),
+    
+    '/admin/module/subscribe/delete-selected.ajax' => array(
+        'controller' => 'Admin:Browser@deleteSelectedAction'
     )
 );
