@@ -27,6 +27,10 @@ final class Browser extends AbstractController
         $this->view->getBreadcrumbBag()
                    ->addOne('Subscribe');
 
+        // Append JS script to the stack
+        $this->view->getPluginBag()
+                   ->appendScript('@Subscribe/admin/browser.js');
+
         $subscribeManager = $this->getModuleService('subscribeManager');
 
         $paginator = $subscribeManager->getPaginator();
