@@ -40,12 +40,10 @@ final class Add extends AbstractSubscriber
         $formValidator = $this->getValidator($this->request->getPost('subscriber'));
 
         if ($formValidator->isValid()) {
-
             $subscribeManager = $this->getModuleService('subscribeManager');
             $subscribeManager->add($this->request->getPost('subscriber'));
 
             $this->flashBag->set('success', 'A subscriber has been added successfully');
-
             return $subscribeManager->getLastId();
 
         } else {
