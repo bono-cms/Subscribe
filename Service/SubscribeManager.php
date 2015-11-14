@@ -50,6 +50,17 @@ final class SubscribeManager extends AbstractManager
     }
 
     /**
+     * Checks whether email is already taken
+     * 
+     * @param string $email
+     * @return boolean
+     */
+    public function emailExists($email)
+    {
+        return $this->subscribeMapper->emailExists($email);
+    }
+
+    /**
      * Returns last subscriber's id
      * 
      * @return integer
