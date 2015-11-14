@@ -25,6 +25,17 @@ final class SubscribeMapper extends AbstractMapper implements SubscribeMapperInt
     }
 
     /**
+     * Checks whether email is already taken
+     * 
+     * @param string $email
+     * @return boolean
+     */
+    public function emailExists($email)
+    {
+        return (bool) $this->countByColumn('email', $email);
+    }
+
+    /**
      * Updates a subscriber
      * 
      * @param array $input Raw input data
