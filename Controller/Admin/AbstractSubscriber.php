@@ -29,7 +29,7 @@ abstract class AbstractSubscriber extends AbstractController
                 'source' => $input,
                 'definition' => array(
                     'name' => new Pattern\Name(),
-                    'email' => new Pattern\Email()
+                    'email' => new Pattern\Email($this->getModuleService('subscribeManager')->emailExists($input['email']))
                 )
             )
         ));
