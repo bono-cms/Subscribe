@@ -112,7 +112,7 @@ final class SubscribeManager extends AbstractManager
     /**
      * Adds a subscriber
      * 
-     * @param array $input
+     * @param array $input Raw input data
      * @return boolean
      */
     public function add(array $input)
