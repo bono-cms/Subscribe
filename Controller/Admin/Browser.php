@@ -87,6 +87,14 @@ final class Browser extends AbstractController
     public function saveAction()
     {
         if ($this->request->isPost() && $this->request->isAjax()) {
+
+            $states = $this->request->getPost('active');
+
+            $subscribeManager = $this->getModuleService('subscribeManager');
+            $subscribeManager->updateActiveStates($states);
+
+            $this->flashBag->set('success', 'Settings have been updated successfully');
+            return '1';
         }
     }
 }
