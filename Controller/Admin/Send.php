@@ -22,6 +22,11 @@ final class Send extends AbstractController
      */
     public function indexAction()
     {
+        // Append breadcrumbs
+        $this->view->getBreadcrumbBag()
+                   ->addOne('Subscribe', 'Subscribe:Admin:Browser@indexAction')
+                   ->addOne('Send');
+
         return $this->view->render('send', array(
             'title' => 'Batch sending to subscribers'
         ));
