@@ -50,6 +50,23 @@ final class SubscribeManager extends AbstractManager
     }
 
     /**
+     * Updates active states
+     * 
+     * @param array $pair
+     * @return boolean
+     */
+    public function updateActiveStates(array $pair)
+    {
+        foreach ($pair as $id => $state) {
+            if (!$this->subscribeMapper->updateActive($id, $state)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
      * Checks whether email is already taken
      * 
      * @param string $email
