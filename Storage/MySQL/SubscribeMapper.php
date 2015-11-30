@@ -25,6 +25,18 @@ final class SubscribeMapper extends AbstractMapper implements SubscribeMapperInt
     }
 
     /**
+     * Updates subscriber's state
+     * 
+     * @param string $id Subscriber id
+     * @param string $state
+     * @return boolean
+     */
+    public function updateActive($id, $state)
+    {
+        return $this->updateColumnByPk($id, 'active', $state);
+    }
+
+    /**
      * Checks whether email is already taken
      * 
      * @param string $email
