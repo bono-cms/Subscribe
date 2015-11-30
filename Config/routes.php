@@ -14,6 +14,10 @@ return array(
         'controller' => 'Admin:Browser@indexAction'
     ),
     
+    '/admin/module/subscribe/save.ajax' => array(
+        'controller' => 'Admin:Browser@saveAction'
+    ),
+    
     '/admin/module/subscribe/page/(:var)' => array(
         'controller' => 'Admin:Browser@deleteAction'
     ),
