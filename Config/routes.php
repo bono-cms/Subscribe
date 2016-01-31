@@ -11,31 +11,27 @@
 
 return array(
     '/admin/module/subscribe' => array(
-        'controller' => 'Admin:Browser@indexAction'
-    ),
-    
-    '/admin/module/subscribe/save.ajax' => array(
-        'controller' => 'Admin:Browser@saveAction'
+        'controller' => 'Admin:Subscriber@gridAction'
     ),
     
     '/admin/module/subscribe/page/(:var)' => array(
-        'controller' => 'Admin:Browser@deleteAction'
+        'controller' => 'Admin:Subscriber@gridAction'
+    ),
+    
+    '/admin/module/subscribe/tweak' => array(
+        'controller' => 'Admin:Subscriber@tweakAction'
     ),
     
     '/admin/module/subscribe/add' => array(
-        'controller' => 'Admin:Add@indexAction'
+        'controller' => 'Admin:Subscriber@addAction'
     ),
 
-    '/admin/module/subscribe/add.ajax' => array(
-        'controller' => 'Admin:Add@addAction'
-    ),
-    
     '/admin/module/subscribe/edit/(:var)' => array(
-        'controller' => 'Admin:Edit@indexAction'
+        'controller' => 'Admin:Subscriber@editAction'
     ),
     
-    '/admin/module/subscribe/edit.ajax' => array(
-        'controller' => 'Admin:Edit@updateAction'
+    '/admin/module/subscribe/save' => array(
+        'controller' => 'Admin:Subscriber@saveAction'
     ),
     
     '/admin/module/subscribe/send' => array(
@@ -46,11 +42,7 @@ return array(
         'controller' => 'Admin:Send@sendAction'
     ),
     
-    '/admin/module/subscribe/delete.ajax' => array(
-        'controller' => 'Admin:Browser@deleteAction'
-    ),
-    
-    '/admin/module/subscribe/delete-selected.ajax' => array(
-        'controller' => 'Admin:Browser@deleteSelectedAction'
+    '/admin/module/subscribe/delete' => array(
+        'controller' => 'Admin:Subscriber@deleteAction'
     )
 );

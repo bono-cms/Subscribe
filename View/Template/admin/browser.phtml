@@ -10,7 +10,7 @@ use Krystal\Form\Element;
 		<span class="glyphicon glyphicon-list"></span> <?php echo $this->translate('Menu'); ?> <span class="caret"></span>
 	  </button> 
 	  <ul class="dropdown-menu">
-		 <li><a href="<?php echo $this->url('Subscribe:Admin:Add@indexAction'); ?>"><i class="glyphicon glyphicon-user"></i> <?php $this->show('Add new subscriber'); ?></a></li>
+		 <li><a href="<?php echo $this->url('Subscribe:Admin:Subscriber@addAction'); ?>"><i class="glyphicon glyphicon-user"></i> <?php $this->show('Add new subscriber'); ?></a></li>
 		 <li><a href="<?php echo $this->url('Subscribe:Admin:Send@indexAction'); ?>"><i class="glyphicon glyphicon-envelope"></i> <?php $this->show('New bulk-sending'); ?></a></li>
 		 <li class="divider"></li>
 		 <li><a href="#" data-button="save-changes" data-url="<?php echo $this->url('Subscribe:Admin:Browser@saveAction'); ?>"><i class="glyphicon glyphicon-floppy-save"></i> <?php $this->show('Save changes'); ?></a></li>
@@ -51,7 +51,7 @@ use Krystal\Form\Element;
 					<?php echo Element::checkbox(sprintf('active[%s]', $subscriber->getId()), $subscriber->getActive()); ?>
 				</td>
 				<td class="text-center">
-					<a data-button="edit" href="<?php echo $this->url('Subscribe:Admin:Edit@indexAction', $subscriber->getId()); ?>"><i class="glyphicon glyphicon-pencil"></i></a>
+					<a data-button="edit" href="<?php echo $this->url('Subscribe:Admin:Subscriber@editAction', $subscriber->getId()); ?>"><i class="glyphicon glyphicon-pencil"></i></a>
 					<a data-button="delete" data-id="<?php echo $subscriber->getId(); ?>" data-category="main" href="#"><i class="glyphicon glyphicon-remove"></i></a>
 				</td>
 			</tr>
