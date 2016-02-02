@@ -114,27 +114,7 @@ final class Subscriber extends AbstractController
      */
     public function deleteAction()
     {
-        // Batch removal
-        if ($this->request->hasPost('toDelete') && $this->request->isAjax()) {
-            $ids = array_keys($this->request->getPost('toDelete'));
-
-            $subscribeManager = $this->getModuleService('subscribeManager');
-            $subscribeManager->deleteByIds($ids);
-
-            $this->flashBag->set('success', 'Selected subscribers have been removed successfully');
-        }
-
-        // Single removal
-        if ($this->request->isPost() && $this->request->isAjax()) {
-            $id = $this->request->getPost('id');
-
-            $subscribeManager = $this->getModuleService('subscribeManager');
-            $subscribeManager->deleteById($id);
-
-            $this->flashBag->set('success', 'A subscriber has been removed successfully');
-        }
-
-        return '1';
+        return $this->invokeRemoval('subscribeManager');
     }
 
     /**
@@ -146,7 +126,7 @@ final class Subscriber extends AbstractController
     {
         $input = $this->request->getPost('subscriber');
 
-        $formValidator = $this->validatorFactory->build(array(
+        return $this->invokeSave('subscribeManager', $input['id'], $input, array(
             'input' => array(
                 'source' => $input,
                 'definition' => array(
@@ -155,24 +135,5 @@ final class Subscriber extends AbstractController
                 )
             )
         ));
-
-        if ($formValidator->isValid()) {
-            $subscribeManager = $this->getModuleService('subscribeManager');
-            
-            if ($input['id']) {
-                if ($subscribeManager->update($this->request->getPost('subscriber'))) {
-                    $this->flashBag->set('success', 'The subscriber has been updated successfully');
-                    return '1';
-                }
-
-            } else {
-                $subscribeManager->add($this->request->getPost('subscriber'));
-
-                $this->flashBag->set('success', 'A subscriber has been added successfully');
-                return $subscribeManager->getLastId();
-            }
-        } else {
-            return $formValidator->getErrors();
-        }
     }
 }
