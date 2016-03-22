@@ -21,7 +21,7 @@ final class SubscribeMapper extends AbstractMapper implements SubscribeMapperInt
      */
     public static function getTableName()
     {
-        return 'bono_module_subscribers';
+        return self::getWithPrefix('bono_module_subscribers');
     }
 
     /**
