@@ -99,7 +99,7 @@ final class Subscriber extends AbstractController
         $subscribeManager = $this->getModuleService('subscribeManager');
 
         $paginator = $subscribeManager->getPaginator();
-        $paginator->setUrl('/admin/module/subscribe/page/(:var)');
+        $paginator->setUrl($this->createUrl('Subscribe:Admin:Subscriber@gridAction', array(), 1));
 
         return $this->view->render('browser', array(
             'subscribers' => $subscribeManager->fetchAllByPage($page, $this->getSharedPerPageCount()),
