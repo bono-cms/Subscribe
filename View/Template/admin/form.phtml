@@ -5,10 +5,10 @@ use Krystal\Form\Element;
 
 ?>
 <form data-group="subscriber">
-	<div class="well clearfix">
+	<div class="well">
         <?php echo Element::hidden('subscriber[id]', $subscriber->getId()); ?>
 
-		<div class="form-group clearfix">
+		<div class="form-group">
 			<label class="col-lg-2 control-label"><?php $this->show('Name'); ?></label>
 			<div class="col-lg-10">
                 <div class="input-group">
@@ -18,7 +18,7 @@ use Krystal\Form\Element;
 			</div>
 		</div>
 
-		<div class="form-group clearfix">
+		<div class="form-group">
 			<label class="col-lg-2 control-label"><?php $this->show('Email'); ?></label>
 			<div class="col-lg-10">
                 <div class="input-group">
