@@ -41,10 +41,10 @@ final class SubscribeManager extends AbstractManager
     protected function toEntity(array $record)
     {
         $entity = new VirtualEntity();
-        $entity->setId($record['id'])
-               ->setName($record['name'])
-               ->setEmail($record['email'])
-               ->setActive($record['active']);
+        $entity->setId($record['id'], VirtualEntity::FILTER_INT)
+               ->setName($record['name'], VirtualEntity::FILTER_TAGS)
+               ->setEmail($record['email'], VirtualEntity::FILTER_TAGS)
+               ->setActive($record['active'], VirtualEntity::FILTER_BOOL);
 
         return $entity;
     }
