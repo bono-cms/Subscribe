@@ -20,7 +20,7 @@ use Krystal\Form\Element;
 	</div>
 </div>
 
-<?php $this->loadBlock('items-per-page', array('caption' => 'Subscribers')); ?>
+<?php $this->loadPartial('items-per-page', array('caption' => 'Subscribers')); ?>
 
 <form>
 	<table class="table table-hover table-bordered table-striped table-condensed">
@@ -69,4 +69,4 @@ use Krystal\Form\Element;
     
 </form>
 
-<?php $this->loadBlock('paginator'); ?>
+<?php $this->loadPartial('paginator'); ?>
