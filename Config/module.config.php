@@ -2,6 +2,7 @@
 
 return array(
  'name'  => 'Subscribe',
+ 'caption'  => 'Subscribe',
  'route' => 'Subscribe:Admin:Subscriber@gridAction',
  'icon'  => 'fa fa-envelope-o fa-5x',
  'order' => 1,
