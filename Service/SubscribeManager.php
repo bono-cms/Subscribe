@@ -42,8 +42,8 @@ final class SubscribeManager extends AbstractManager
     {
         $entity = new VirtualEntity();
         $entity->setId($record['id'], VirtualEntity::FILTER_INT)
-               ->setName($record['name'], VirtualEntity::FILTER_TAGS)
-               ->setEmail($record['email'], VirtualEntity::FILTER_TAGS)
+               ->setName($record['name'], VirtualEntity::FILTER_HTML)
+               ->setEmail($record['email'], VirtualEntity::FILTER_HTML)
                ->setActive($record['active'], VirtualEntity::FILTER_BOOL);
 
         return $entity;
