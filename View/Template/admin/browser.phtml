@@ -52,8 +52,8 @@ use Krystal\Form\Element;
 					<?php echo Element::checkbox(sprintf('active[%s]', $subscriber->getId()), $subscriber->getActive()); ?>
 				</td>
 				<td class="text-center">
-					<a data-button="edit" href="<?php echo $this->url('Subscribe:Admin:Subscriber@editAction', $subscriber->getId()); ?>"><i class="glyphicon glyphicon-pencil"></i></a>
-					<a data-button="delete" data-url="<?php echo $this->url('Subscribe:Admin:Subscriber@deleteAction', $subscriber->getId()); ?>" href="#"><i class="glyphicon glyphicon-remove"></i></a>
+                    <a data-button="edit" href="<?php echo $this->url('Subscribe:Admin:Subscriber@editAction', $subscriber->getId()); ?>" data-toggle="tooltip" data-placement="left" data-original-title="<?php $this->show('Edit this subscriber'); ?>"><i class="glyphicon glyphicon-pencil"></i></a>
+					<a data-button="delete" data-url="<?php echo $this->url('Subscribe:Admin:Subscriber@deleteAction', $subscriber->getId()); ?>" data-toggle="tooltip" data-placement="left" data-original-title="<?php $this->show('Remove this subscriber'); ?>" href="#"><i class="glyphicon glyphicon-remove"></i></a>
 				</td>
 			</tr>
 			<?php endforeach; ?>
