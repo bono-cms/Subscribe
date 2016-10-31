@@ -106,11 +106,12 @@ final class Subscriber extends AbstractController
     /**
      * Removes a subscriber by their associated id
      * 
+     * @param string $id
      * @return string
      */
-    public function deleteAction()
+    public function deleteAction($id)
     {
-        return $this->invokeRemoval('subscribeManager');
+        return $this->invokeRemoval('subscribeManager', $id);
     }
 
     /**
