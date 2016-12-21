@@ -16,19 +16,17 @@ use Cms\Controller\Admin\AbstractController;
 final class Send extends AbstractController
 {
     /**
-     * Displays a form
+     * Renders the form
      * 
      * @return string
      */
     public function indexAction()
     {
         // Append breadcrumbs
-        $this->view->getBreadcrumbBag()
-                   ->addOne('Subscribe', 'Subscribe:Admin:Browser@indexAction')
-                   ->addOne('Send');
+        $this->view->getBreadcrumbBag()->addOne('Subscribe', 'Subscribe:Admin:Subscriber@gridAction')
+                                       ->addOne('Send');
 
         return $this->view->render('send', array(
-            'title' => 'Batch sending to subscribers'
         ));
     }
 
