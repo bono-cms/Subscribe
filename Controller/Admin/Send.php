@@ -22,6 +22,10 @@ final class Send extends AbstractController
      */
     public function indexAction()
     {
+        // Load view plugins
+        $this->view->getPluginBag()
+                   ->load(array($this->getWysiwygPluginName()));
+
         // Append breadcrumbs
         $this->view->getBreadcrumbBag()->addOne('Subscribe', 'Subscribe:Admin:Subscriber@gridAction')
                                        ->addOne('Send');
