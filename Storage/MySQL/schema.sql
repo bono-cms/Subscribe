@@ -7,7 +7,8 @@ CREATE TABLE `bono_module_subscribers` (
     `name` varchar(100) NOT NULL,
 	`email` varchar(250) NOT NULL,
 	`timestamp` INT(10) NOT NULL,
-	`active` varchar(1) NOT NULL
+	`active` varchar(1) NOT NULL,
+    `key` varchar(32) NOT NULL COMMENT 'Unique key for this email. Used to confirm an email or to unsubscribe'
 	
 ) DEFAULT CHARSET=UTF8;
 
