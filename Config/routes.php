@@ -10,6 +10,19 @@
  */
 
 return array(
+    
+    '/module/subscribe/subscribe' => array(
+        'controller' => 'Handler@subcribeAction'
+    ),
+
+    '/module/subscribe/confirm/(:var)' => array(
+        'controller' => 'Handler@confirmAction'
+    ),
+    
+    '/module/subscribe/unsubscribe' => array(
+        'controller' => 'Handler@unsubscribeAction'
+    ),
+    
     '/%s/module/subscribe' => array(
         'controller' => 'Admin:Subscriber@gridAction'
     ),
