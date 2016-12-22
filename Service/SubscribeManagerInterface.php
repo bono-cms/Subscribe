@@ -53,6 +53,15 @@ interface SubscribeManagerInterface
     public function fetchAllByPage($page, $itemsPerPage);
 
     /**
+     * Subscribes a user returning unique key
+     * 
+     * @param string $name
+     * @param string $email
+     * @return string
+     */
+    public function subscribe($name, $email);
+
+    /**
      * Adds a subscriber
      * 
      * @param array $input Raw input data

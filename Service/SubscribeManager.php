@@ -14,6 +14,7 @@ namespace Subscribe\Service;
 use Cms\Service\AbstractManager;
 use Subscribe\Storage\SubscribeMapperInterface;
 use Krystal\Stdlib\VirtualEntity;
+use Krystal\Text\TextUtils;
 
 final class SubscribeManager extends AbstractManager
 {
@@ -107,6 +108,26 @@ final class SubscribeManager extends AbstractManager
     public function fetchAllByPage($page, $itemsPerPage)
     {
         return $this->prepareResults($this->subscribeMapper->fetchAllByPage($page, $itemsPerPage));
+    }
+
+    /**
+     * Subscribes a user returning unique key
+     * 
+     * @param string $name
+     * @param string $email
+     * @return string
+     */
+    public function subscribe($name, $email)
+    {
+        $key = TextUtils::uniqueString();
+
+        $this->add(array(
+            'email' => $email,
+            'name' => $name,
+            'key' => $key
+        ));
+
+        return $key;
     }
 
     /**
