@@ -14,6 +14,14 @@ namespace Subscribe\Storage;
 interface SubscribeMapperInterface
 {
     /**
+     * Finds an email by associated key
+     * 
+     * @param string $key
+     * @return string
+     */
+    public function findEmailByKey($key);
+
+    /**
      * Updates subscriber's state
      * 
      * @param string $id Subscriber id

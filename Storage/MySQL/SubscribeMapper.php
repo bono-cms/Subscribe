@@ -25,6 +25,22 @@ final class SubscribeMapper extends AbstractMapper implements SubscribeMapperInt
     }
 
     /**
+     * Finds an email by associated key
+     * 
+     * @param string $key
+     * @return string
+     */
+    public function findEmailByKey($key)
+    {
+        $column = 'email';
+
+        return $this->db->select($column)
+                        ->from(self::getTableName())
+                        ->whereEquals('key', $key)
+                        ->query($column);
+    }
+
+    /**
      * Updates subscriber's state
      * 
      * @param string $id Subscriber id
