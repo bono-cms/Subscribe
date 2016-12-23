@@ -53,6 +53,14 @@ interface SubscribeManagerInterface
     public function fetchAllByPage($page, $itemsPerPage);
 
     /**
+     * Confirm that user clicked on confirmation link
+     * 
+     * @param string $key Activation key
+     * @return boolean
+     */
+    public function confirmUser($key);
+
+    /**
      * Subscribes a user returning unique key
      * 
      * @param string $name

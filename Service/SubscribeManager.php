@@ -111,6 +111,31 @@ final class SubscribeManager extends AbstractManager
     }
 
     /**
+     * Confirm that user clicked on confirmation link
+     * 
+     * @param string $key Activation key
+     * @return boolean
+     */
+    public function confirmUser($key)
+    {
+        $email = $this->subscribeMapper->findEmailByKey($key);
+
+        // If could find
+        if (!empty($email)) {
+            // Mark the email as active
+            $this->subscribeMapper->makeActiveByEmail($email);
+
+            // For security reasons, update the key, so that the current key will no longer be valid
+            $this->subscribeMapper->updateKeyByEmail($email, TextUtils::uniqueString());
+
+            return true;
+        } else {
+            // Can't find email by provided key
+            return false;
+        }
+    }
+
+    /**
      * Subscribes a user returning unique key
      * 
      * @param string $name
