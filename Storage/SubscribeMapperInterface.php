@@ -22,6 +22,15 @@ interface SubscribeMapperInterface
     public function findEmailByKey($key);
 
     /**
+     * Updates a key by associated email
+     * 
+     * @param string $email
+     * @param string $key
+     * @return boolean
+     */
+    public function updateKeyByEmail($email, $key);
+
+    /**
      * Marks a user as active by associated email
      * 
      * @param string $email

@@ -41,6 +41,33 @@ final class SubscribeMapper extends AbstractMapper implements SubscribeMapperInt
     }
 
     /**
+     * Updates a record by its associated email
+     * 
+     * @param string $email
+     * @param string $column
+     * @param string $value
+     * @return boolean
+     */
+    private function updateByEmail($email, $column, $value)
+    {
+        return $this->db->update(self::getTableName(), array($column => $value))
+                        ->whereEquals('email', $email)
+                        ->execute();
+    }
+
+    /**
+     * Updates a key by associated email
+     * 
+     * @param string $email
+     * @param string $key
+     * @return boolean
+     */
+    public function updateKeyByEmail($email, $key)
+    {
+        return $this->updateByEmail($email, 'key', $email);
+    }
+
+    /**
      * Marks a user as active by associated email
      * 
      * @param string $email
@@ -48,9 +75,7 @@ final class SubscribeMapper extends AbstractMapper implements SubscribeMapperInt
      */
     public function makeActiveByEmail($email)
     {
-        return $this->db->update(self::getTableName(), array('active' => '1'))
-                        ->whereEquals('email', $email)
-                        ->execute();
+        return $this->updateByEmail($email, 'active', '1');
     }
 
     /**
