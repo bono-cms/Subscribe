@@ -41,6 +41,19 @@ final class SubscribeMapper extends AbstractMapper implements SubscribeMapperInt
     }
 
     /**
+     * Marks a user as active by associated email
+     * 
+     * @param string $email
+     * @return boolean
+     */
+    public function makeActiveByEmail($email)
+    {
+        return $this->db->update(self::getTableName(), array('active' => '1'))
+                        ->whereEquals('email', $email)
+                        ->execute();
+    }
+
+    /**
      * Updates subscriber's state
      * 
      * @param string $id Subscriber id

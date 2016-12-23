@@ -22,6 +22,14 @@ interface SubscribeMapperInterface
     public function findEmailByKey($key);
 
     /**
+     * Marks a user as active by associated email
+     * 
+     * @param string $email
+     * @return boolean
+     */
+    public function makeActiveByEmail($email);
+
+    /**
      * Updates subscriber's state
      * 
      * @param string $id Subscriber id
