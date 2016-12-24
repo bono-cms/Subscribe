@@ -64,7 +64,7 @@ final class SubscribeMapper extends AbstractMapper implements SubscribeMapperInt
      */
     public function updateKeyByEmail($email, $key)
     {
-        return $this->updateByEmail($email, 'key', $email);
+        return $this->updateByEmail($email, 'key', $key);
     }
 
     /**
