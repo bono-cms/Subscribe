@@ -146,6 +146,20 @@ final class SubscribeMapper extends AbstractMapper implements SubscribeMapperInt
     }
 
     /**
+     * Deletes a subscriber by their associated key
+     * 
+     * @param string $key
+     * @return integer A number of affected rows
+     */
+    public function deleteByKey($key)
+    {
+        return $this->db->delete()
+                        ->from(self::getTableName())
+                        ->whereEquals('key', $key)
+                        ->execute(true);
+    }
+
+    /**
      * Fetches all subscribers filtered by pagination
      * 
      * @param integer $page Current page number

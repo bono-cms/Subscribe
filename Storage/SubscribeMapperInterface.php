@@ -88,6 +88,14 @@ interface SubscribeMapperInterface
     public function deleteById($id);
 
     /**
+     * Deletes a subscriber by their associated key
+     * 
+     * @param string $key
+     * @return integer A number of affected rows
+     */
+    public function deleteByKey($key);
+
+    /**
      * Fetches all subscribers filtered by pagination
      * 
      * @param integer $page Current page number
