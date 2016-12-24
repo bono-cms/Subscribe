@@ -14,6 +14,13 @@ namespace Subscribe\Storage;
 interface SubscribeMapperInterface
 {
     /**
+     * Fetches all activated emails
+     * 
+     * @return array
+     */
+    public function findActiveEmails();
+
+    /**
      * Finds an email by associated key
      * 
      * @param string $key

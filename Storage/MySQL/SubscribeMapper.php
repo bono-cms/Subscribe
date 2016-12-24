@@ -25,6 +25,21 @@ final class SubscribeMapper extends AbstractMapper implements SubscribeMapperInt
     }
 
     /**
+     * Fetches all activated emails
+     * 
+     * @return array
+     */
+    public function findActiveEmails()
+    {
+        $column = 'email';
+
+        return $this->db->select($column)
+                        ->from(self::getTableName())
+                        ->whereEquals('active', '1')
+                        ->queryAll($column);
+    }
+
+    /**
      * Finds an email by associated key
      * 
      * @param string $key
