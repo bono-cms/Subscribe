@@ -22,7 +22,7 @@
 <div class="container">
     <h2>
         <?php if ($success): ?>
-        <?php $this->show('Thank you! You have successfully confirmed your email'); ?>
+        <?php $this->show($message); ?>
 
         <?php else: ?>
         <?php $this->show('The confirmation key is invalid'); ?>
