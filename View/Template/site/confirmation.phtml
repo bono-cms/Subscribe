@@ -1,0 +1,22 @@
+
+<div class="container">
+    <h2>
+        <?php if ($success): ?>
+        <?php $this->show('Thank you! You have successfully confirmed your email'); ?>
+
+        <?php else: ?>
+        <?php $this->show('The confirmation key is invalid'); ?>
+
+        <?php endif; ?>
+    </h2>
+</div>
+
+<style>
+
+.container > h2 {
+  text-align: center;
+  margin-top: 5%;
+  color: rebeccapurple;
+}
+
+</style>
