@@ -136,6 +136,17 @@ final class SubscribeManager extends AbstractManager
     }
 
     /**
+     * Unsubscribes a user by their associated key
+     * 
+     * @param string $key
+     * @return boolean
+     */
+    public function unsubscribe($key)
+    {
+        return $this->subscribeMapper->deleteByKey($key) != 0;
+    }
+
+    /**
      * Subscribes a user returning unique key
      * 
      * @param string $name

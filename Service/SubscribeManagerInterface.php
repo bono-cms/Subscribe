@@ -61,6 +61,14 @@ interface SubscribeManagerInterface
     public function confirmUser($key);
 
     /**
+     * Unsubscribes a user by their associated key
+     * 
+     * @param string $key
+     * @return boolean
+     */
+    public function unsubscribe($key);
+
+    /**
      * Subscribes a user returning unique key
      * 
      * @param string $name
