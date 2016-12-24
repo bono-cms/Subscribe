@@ -19,7 +19,7 @@ return array(
         'controller' => 'Handler@confirmAction'
     ),
     
-    '/module/subscribe/unsubscribe' => array(
+    '/module/subscribe/unsubscribe/(:var)' => array(
         'controller' => 'Handler@unsubscribeAction'
     ),
     
