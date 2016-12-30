@@ -13,37 +13,9 @@ namespace Subscribe\Controller\Admin;
 
 use Cms\Controller\Admin\AbstractController;
 use Krystal\Validate\Pattern;
-use Krystal\Stdlib\VirtualEntity;
 
 final class Subscriber extends AbstractController
 {
-    /**
-     * Creates a form
-     * 
-     * @param \Krystal\Stdlib\VirtualEntity $subscriber
-     * @return string
-     */
-    private function createForm(VirtualEntity $subscriber, $title)
-    {
-        // Append breadcrumbs
-        $this->view->getBreadcrumbBag()->addOne('Subscribe', 'Subscribe:Admin:Subscriber@gridAction')
-                                       ->addOne($title);
-
-        return $this->view->render('form', array(
-            'subscriber' => $subscriber
-        ));
-    }
-
-    /**
-     * Renders empty form
-     * 
-     * @return string
-     */
-    public function addAction()
-    {
-        return $this->createForm(new VirtualEntity(), 'Add new subscriber');
-    }
-
     /**
      * Renders edit form
      * 
@@ -55,7 +27,15 @@ final class Subscriber extends AbstractController
         $subscriber = $this->getModuleService('subscribeManager')->fetchById($id);
 
         if ($subscriber !== false) {
-            return $this->createForm($subscriber, 'Edit the subscriber');
+
+            // Append breadcrumbs
+            $this->view->getBreadcrumbBag()->addOne('Subscribe', 'Subscribe:Admin:Subscriber@gridAction')
+                                           ->addOne('Edit the subscriber');
+
+            return $this->view->render('form', array(
+                'subscriber' => $subscriber
+            ));
+
         } else {
             return false;
         }

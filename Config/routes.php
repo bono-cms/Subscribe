@@ -35,10 +35,6 @@ return array(
         'controller' => 'Admin:Subscriber@tweakAction'
     ),
     
-    '/%s/module/subscribe/add' => array(
-        'controller' => 'Admin:Subscriber@addAction'
-    ),
-
     '/%s/module/subscribe/edit/(:var)' => array(
         'controller' => 'Admin:Subscriber@editAction'
     ),
