@@ -16,9 +16,11 @@ interface SubscribeMapperInterface
     /**
      * Fetches all activated emails
      * 
+     * @param integer $offset Starting offset
+     * @param integer $limit Limit for records to be returned from offset
      * @return array
      */
-    public function findActiveEmails();
+    public function findActiveEmails($offset = 0, $limit = 0);
 
     /**
      * Finds an email by associated key

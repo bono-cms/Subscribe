@@ -27,16 +27,24 @@ final class SubscribeMapper extends AbstractMapper implements SubscribeMapperInt
     /**
      * Fetches all activated emails
      * 
+     * @param integer $offset Starting offset
+     * @param integer $limit Limit for records to be returned from offset
      * @return array
      */
-    public function findActiveEmails()
+    public function findActiveEmails($offset = 0, $limit = 0)
     {
         $column = 'email';
 
-        return $this->db->select($column)
-                        ->from(self::getTableName())
-                        ->whereEquals('active', '1')
-                        ->queryAll($column);
+        $db = $this->db->select($column)
+                       ->from(self::getTableName())
+                       ->whereEquals('active', '1');
+
+        // Append a limitation if provided
+        if ($offset !== 0 && $limit !== 0) {
+            $db->limit($offset, $limit);
+        }
+
+        return $db->queryAll($column);
     }
 
     /**
