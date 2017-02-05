@@ -27,7 +27,6 @@ final class Subscriber extends AbstractController
         $subscriber = $this->getModuleService('subscribeManager')->fetchById($id);
 
         if ($subscriber !== false) {
-
             // Append breadcrumbs
             $this->view->getBreadcrumbBag()->addOne('Subscribe', 'Subscribe:Admin:Subscriber@gridAction')
                                            ->addOne('Edit the subscriber');
@@ -91,7 +90,25 @@ final class Subscriber extends AbstractController
      */
     public function deleteAction($id)
     {
-        return $this->invokeRemoval('subscribeManager', $id);
+        $service = $this->getModuleService('subscribeManager');
+
+        // Batch removal
+        if ($this->request->hasPost('toDelete')) {
+            $ids = array_keys($this->request->getPost('toDelete'));
+
+            $service->deleteByIds($ids);
+            $this->flashBag->set('success', 'Selected elements have been removed successfully');
+        } else {
+            $this->flashBag->set('warning', 'You should select at least one element to remove');
+        }
+
+        // Single removal
+        if (!empty($id)) {
+            $service->deleteById($id);
+            $this->flashBag->set('success', 'Selected element has been removed successfully');
+        }
+
+        return '1';
     }
 
     /**
@@ -103,7 +120,7 @@ final class Subscriber extends AbstractController
     {
         $input = $this->request->getPost('subscriber');
 
-        return $this->invokeSave('subscribeManager', $input['id'], $input, array(
+        $formValidator = $this->createValidator(array(
             'input' => array(
                 'source' => $input,
                 'definition' => array(
@@ -112,5 +129,17 @@ final class Subscriber extends AbstractController
                 )
             )
         ));
+
+        if ($formValidator->isValid()) {
+            $service = $this->getModuleService('subscribeManager');
+
+            if ($service->update($input)) {
+                $this->flashBag->set('success', 'The element has been updated successfully');
+                return '1';
+            }
+
+        } else {
+            return $formValidator->getErrors();
+        }
     }
 }
