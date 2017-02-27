@@ -50,7 +50,7 @@ final class Handler extends AbstractController
     }
 
     /**
-     * Subsribes a user by their email addresss
+     * Subscribes a user by their email address
      * 
      * @return string
      */
@@ -88,7 +88,7 @@ final class Handler extends AbstractController
                 $mailer = $this->getService('Cms', 'mailer');
                 $mailer->sendTo($data['email'], $subject, $message);
 
-                // Successfullt sent a request to news letters
+                // Successfully sent a request to news letters
                 return '1';
 
             } else {
