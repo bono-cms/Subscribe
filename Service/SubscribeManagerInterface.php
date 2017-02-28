@@ -12,7 +12,16 @@
 namespace Subscribe\Serivice;
 
 interface SubscribeManagerInterface
-{   
+{
+    /**
+     * Performs a bulk sending to subscribers
+     * 
+     * @param string $subject
+     * @param string $body
+     * @return boolean
+     */
+    public function mailAll($subject, $body);
+
     /**
      * Updates active states
      * 
