@@ -103,12 +103,20 @@ final class Handler extends AbstractController
                     $mailer->sendTo($data['email'], $subject, $message);
 
                     // Successfully sent a request to news letters
-                    return '1';
+                    $output = array(
+                        'code' => '1',
+                        'message' => $this->translator->translate('Thanks for subscription. Please now check your email to confirm your identity')
+                    );
 
                 } else {
                     // Email already exists
-                    return '0';
+                    $output = array(
+                        'code' => '0',
+                        'message' => $this->translator->translate('Email already exists')
+                    );
                 }
+
+                return json_encode($output);
 
             } else {
                 return $formValidator->getErrors();
