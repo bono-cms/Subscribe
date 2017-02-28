@@ -28,7 +28,7 @@ final class Send extends AbstractController
 
         // Append breadcrumbs
         $this->view->getBreadcrumbBag()->addOne('Subscribe', 'Subscribe:Admin:Subscriber@gridAction')
-                                       ->addOne('Send');
+                                       ->addOne('New bulk-sending');
 
         return $this->view->render('send', array(
         ));
@@ -41,5 +41,27 @@ final class Send extends AbstractController
      */
     public function sendAction()
     {
+        if ($this->request->hasPost('subject', 'content')) {
+            // Configure view
+            $this->view->setModule('Subscribe')
+                       ->setTheme('site')
+                       ->disableLayout();
+
+            // Prepare the body
+            $body = $this->view->render('newsletter', array(
+                'content' => $this->request->getPost('content'))
+            );
+
+            // Subscribe manager
+            $subscribeManager = $this->getModuleService('subscribeManager');
+            $subscribeManager->mailAll(
+                $this->request->getPost('subject'),
+                $body
+            );
+
+            $this->flashBag->set('success', 'The mailing queue has been successfully processed');
+        }
+
+        return '1';
     }
 }

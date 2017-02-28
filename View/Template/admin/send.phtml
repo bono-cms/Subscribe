@@ -25,6 +25,6 @@ defined('KRYSTAL') or die;
 		</div>
     </div>
     
-    <button class="btn btn-success"><i class="glyphicon glyphicon-ok"></i> <?php $this->show('Start'); ?></button>
+    <button data-button="save" data-url="<?php echo $this->url('Subscribe:Admin:Send@sendAction'); ?>" class="btn btn-success"><i class="glyphicon glyphicon-ok"></i> <?php $this->show('Start'); ?></button>
 	<button data-button="cancel" data-url="<?php echo $this->url('Subscribe:Admin:Subscriber@gridAction'); ?>" class="btn btn-default"><i class="glyphicon glyphicon-remove"></i> <?php $this->show('Cancel'); ?></button>
 </form>
