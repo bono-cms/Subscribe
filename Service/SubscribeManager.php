@@ -151,19 +151,24 @@ final class SubscribeManager extends AbstractManager
      * 
      * @param string $name
      * @param string $email
-     * @return string
+     * @return string|boolean False if email already taken
      */
     public function subscribe($name, $email)
     {
-        $key = TextUtils::uniqueString();
+        // Do only this in case email doesn't exist
+        if (!$this->emailExists($email)) {
+            $key = TextUtils::uniqueString();
 
-        $this->add(array(
-            'email' => $email,
-            'name' => $name,
-            'key' => $key
-        ));
+            $this->add(array(
+                'email' => $email,
+                'name' => $name,
+                'key' => $key
+            ));
 
-        return $key;
+            return $key;
+        } else {
+            return false;
+        }
     }
 
     /**

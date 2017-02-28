@@ -73,7 +73,7 @@ interface SubscribeManagerInterface
      * 
      * @param string $name
      * @param string $email
-     * @return string
+     * @return string|boolean False if email already taken
      */
     public function subscribe($name, $email);
 
