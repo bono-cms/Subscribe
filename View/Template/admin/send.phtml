@@ -16,6 +16,26 @@ defined('KRYSTAL') or die;
                 </div>
 			</div>
 		</div>
+
+		<div class="form-group">
+			<label class="col-lg-2 control-label"><?php $this->show('Offset'); ?></label>
+			<div class="col-lg-10">
+                <div class="input-group">
+                    <?php echo Element::text('offset', null, array('class' => 'form-control', 'placeholder' => $this->translate('Starting mailing from (record number)'))); ?>
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                </div>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-lg-2 control-label"><?php $this->show('Limit'); ?></label>
+			<div class="col-lg-10">
+                <div class="input-group">
+                    <?php echo Element::text('limit', null, array('class' => 'form-control', 'placeholder' => $this->translate('End mailing at (record number)'))); ?>
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                </div>
+			</div>
+		</div>
         
 		<div class="form-group">
 			<label class="col-lg-2 control-label"><?php $this->show('Content'); ?></label>

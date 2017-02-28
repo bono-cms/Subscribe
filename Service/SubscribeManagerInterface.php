@@ -18,9 +18,11 @@ interface SubscribeManagerInterface
      * 
      * @param string $subject
      * @param string $body
+     * @param string $offset Row offset
+     * @param string $limit Records limit
      * @return boolean
      */
-    public function mailAll($subject, $body);
+    public function mailAll($subject, $body, $offset, $limit);
 
     /**
      * Updates active states

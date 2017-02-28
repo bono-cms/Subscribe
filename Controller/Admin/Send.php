@@ -56,7 +56,9 @@ final class Send extends AbstractController
             $subscribeManager = $this->getModuleService('subscribeManager');
             $subscribeManager->mailAll(
                 $this->request->getPost('subject'),
-                $body
+                $body,
+                $this->request->getPost('offset'),
+                $this->request->getPost('limit')
             );
 
             $this->flashBag->set('success', 'The mailing queue has been successfully processed');

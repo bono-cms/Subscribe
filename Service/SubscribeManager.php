@@ -65,12 +65,16 @@ final class SubscribeManager extends AbstractManager
      * 
      * @param string $subject
      * @param string $body
+     * @param string $offset Row offset
+     * @param string $limit Records limit
      * @return boolean
      */
-    public function mailAll($subject, $body)
+    public function mailAll($subject, $body, $offset, $limit)
     {
-        $offset = 0;
-        $limit = 0;
+        if (empty($offset) || empty($limit)){
+            $offset = 0;
+            $limit = 0;
+        }
 
         // Get array of all activated emails
         $emails = $this->subscribeMapper->findActiveEmails($offset, $limit);
