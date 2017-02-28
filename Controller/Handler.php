@@ -59,40 +59,59 @@ final class Handler extends AbstractController
         if ($this->request->isPost()) {
             $data = $this->request->getPost();
 
+            // If name isn't provided, use empty name
+            if (!isset($data['name'])) {
+                $data['name'] = '';
+
+                $rules = array(
+                    'email' => new Pattern\Email(),
+                );
+            } else {
+                $rules = array(
+                    'email' => new Pattern\Email(),
+                    'name' => new Pattern\Name()
+                );
+            }
+
             // Create form validator
-            $formValudator = $this->createValidator(array(
+            $formValidator = $this->createValidator(array(
                 'input' => array(
                     'source' => $data,
-                    'definition' => array(
-                        'email' => new Pattern\Email(),
-                        'name' => new Pattern\Name()
-                    )
+                    'definition' => $rules
                 )
             ));
 
-            if ($formValudator->isValid()) {
+            if ($formValidator->isValid()) {
                 $service = $this->getModuleService('subscribeManager');
 
                 // Prepare common variables
                 $key = $service->subscribe($data['name'], $data['email']);
-                $url = $this->request->getBaseUrl();
-                $subject = $this->translator->translate('Confirm your email');
 
-                $message = $this->createMessage('subscribe', array(
-                    'name' => $data['name'],
-                    'site' => $url,
-                    'link' => $url.$this->createUrl('Subscribe:Handler@confirmAction', array($key))
-                ));
+                // If key isn't false, that means the email doesn't yet exists in a database
+                if ($key !== false) {
+                    $url = $this->request->getBaseUrl();
+                    $subject = $this->translator->translate('Confirm your email');
 
-                // Send e-mail notification now
-                $mailer = $this->getService('Cms', 'mailer');
-                $mailer->sendTo($data['email'], $subject, $message);
+                    $message = $this->createMessage('subscribe', array(
+                        'name' => $data['name'],
+                        'site' => $url,
+                        'link' => $url.$this->createUrl('Subscribe:Handler@confirmAction', array($key))
+                    ));
 
-                // Successfully sent a request to news letters
-                return '1';
+                    // Send e-mail notification now
+                    $mailer = $this->getService('Cms', 'mailer');
+                    $mailer->sendTo($data['email'], $subject, $message);
+
+                    // Successfully sent a request to news letters
+                    return '1';
+
+                } else {
+                    // Email already exists
+                    return '0';
+                }
 
             } else {
-                return $formValudator->getErrors();
+                return $formValidator->getErrors();
             }
         }
     }
