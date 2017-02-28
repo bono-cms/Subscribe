@@ -117,7 +117,7 @@ final class Handler extends AbstractController
     }
 
     /**
-     * Unsubsribes a user by their email addresss
+     * Unsubsribes a user by their email address
      * 
      * @param string $key
      * @return string
