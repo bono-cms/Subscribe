@@ -7,4 +7,4 @@ use Subscribe\Service\SubscribeManager;
 <?php echo $content; ?>
 
 <hr />
-<small><?php echo $this->translate('If you no longer wish to receive our newsletters, you can always'); ?> <a href="<?php echo SubscribeManager::PARAM_UNSUBSCRIBE_PLACEHOLDER; ?>"><?php $this->show('unsubscribe'); ?></a></small>
+<small><?php echo $this->translate('If you no longer wish to receive our newsletters, you can always'); ?> <a target="_blank" href="<?php echo SubscribeManager::PARAM_UNSUBSCRIBE_PLACEHOLDER; ?>"><?php $this->show('unsubscribe'); ?></a></small>
