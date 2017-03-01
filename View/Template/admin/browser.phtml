@@ -11,10 +11,22 @@ use Krystal\Form\Element;
 		<span class="glyphicon glyphicon-list"></span> <?php echo $this->translate('Menu'); ?> <span class="caret"></span>
 	  </button>
 	  <ul class="dropdown-menu">
+         
+         <?php if (!empty($subscribers)): ?>
 		 <li><a href="<?php echo $this->url('Subscribe:Admin:Send@indexAction'); ?>"><i class="glyphicon glyphicon-envelope"></i> <?php $this->show('New bulk-sending'); ?></a></li>
+         <?php else: ?>
+		 <li class="disabled"><a><i class="glyphicon glyphicon-envelope"></i> <?php $this->show('New bulk-sending'); ?></a></li>
+         <?php endif; ?>
+         
 		 <li class="divider"></li>
+         
+         <?php if (!empty($subscribers)): ?>
 		 <li><a href="#" data-button="save-changes" data-url="<?php echo $this->url('Subscribe:Admin:Subscriber@tweakAction'); ?>"><i class="glyphicon glyphicon-floppy-save"></i> <?php $this->show('Save changes'); ?></a></li>
 		 <li><a href="#" data-button="remove-selected" data-url="<?php echo $this->url('Subscribe:Admin:Subscriber@deleteAction', null); ?>"><i class="glyphicon glyphicon-remove"></i> <?php $this->show('Remove selected'); ?></a></li>
+         <?php else: ?>
+		 <li class="disabled"><a><i class="glyphicon glyphicon-floppy-save"></i> <?php $this->show('Save changes'); ?></a></li>
+		 <li class="disabled"><a><i class="glyphicon glyphicon-remove"></i> <?php $this->show('Remove selected'); ?></a></li>
+         <?php endif; ?>
 	  </ul>
 	</div>
 </div>
