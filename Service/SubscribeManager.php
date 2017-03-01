@@ -11,7 +11,6 @@
 
 namespace Subscribe\Service;
 
-use Cms\Service\MailerInterface;
 use Cms\Service\AbstractManager;
 use Subscribe\Storage\SubscribeMapperInterface;
 use Krystal\Stdlib\VirtualEntity;
@@ -27,23 +26,19 @@ final class SubscribeManager extends AbstractManager
     private $subscribeMapper;
 
     /**
-     * Mailer service
-     * 
-     * @var \Cms\Service\MailerInterface
+     * @const string
      */
-    private $mailer;
-
+    const PARAM_UNSUBSCRIBE_PLACEHOLDER = '{{ unsubscribe }}';
+    
     /**
      * State initialization
      * 
      * @param \Subscribe\Storage\SubscribeMapperInterface $subscribeMapper
-     * @param \Cms\Service\MailerInterface $mailer
      * @return void
      */
-    public function __construct(SubscribeMapperInterface $subscribeMapper, MailerInterface $mailer)
+    public function __construct(SubscribeMapperInterface $subscribeMapper)
     {
         $this->subscribeMapper = $subscribeMapper;
-        $this->mailer = $mailer;
     }
 
     /**
@@ -63,27 +58,19 @@ final class SubscribeManager extends AbstractManager
     /**
      * Performs a bulk sending to subscribers
      * 
-     * @param string $subject
-     * @param string $body
      * @param string $offset Row offset
      * @param string $limit Records limit
      * @return boolean
      */
-    public function mailAll($subject, $body, $offset, $limit)
+    public function findActiveEmails($offset, $limit)
     {
-        if (empty($offset) || empty($limit)){
+        if (empty($offset) || empty($limit)) {
             $offset = 0;
             $limit = 0;
         }
 
         // Get array of all activated emails
-        $emails = $this->subscribeMapper->findActiveEmails($offset, $limit);
-
-        foreach ($emails as $email) {
-            $this->mailer->sendTo($email, $subject, $body);
-        }
-
-        return true;
+        return $this->subscribeMapper->findActiveEmails($offset, $limit);
     }
 
     /**

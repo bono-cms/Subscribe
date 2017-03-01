@@ -21,10 +21,8 @@ final class Module extends AbstractCmsModule
      */
     public function getServiceProviders()
     {
-        $mailer = $this->getMailer();
-        
         $subscribeMapper = $this->getMapper('/Subscribe/Storage/MySQL/SubscribeMapper');
-        $subscribeManager = new SubscribeManager($subscribeMapper, $mailer);
+        $subscribeManager = new SubscribeManager($subscribeMapper);
 
         return array(
             'subscribeManager' => $subscribeManager

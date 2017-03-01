@@ -16,13 +16,11 @@ interface SubscribeManagerInterface
     /**
      * Performs a bulk sending to subscribers
      * 
-     * @param string $subject
-     * @param string $body
      * @param string $offset Row offset
      * @param string $limit Records limit
      * @return boolean
      */
-    public function mailAll($subject, $body, $offset, $limit);
+    public function findActiveEmails($offset, $limit);
 
     /**
      * Updates active states

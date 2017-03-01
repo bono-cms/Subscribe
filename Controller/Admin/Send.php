@@ -12,9 +12,37 @@
 namespace Subscribe\Controller\Admin;
 
 use Cms\Controller\Admin\AbstractController;
+use Subscribe\Service\SubscribeManager;
 
 final class Send extends AbstractController
 {
+    /**
+     * Performs a bulk sending to subscribers
+     * 
+     * @param string $subject
+     * @param string $body
+     * @param string $offset Row offset
+     * @param string $limit Records limit
+     * @return boolean
+     */
+    private function mailAll($subject, $body, $offset, $limit)
+    {
+        // Get mailer instance
+        $mailer = $this->getService('Cms', 'mailer');
+
+        // Get array of all activated emails
+        $users = $this->getModuleService('subscribeManager')->findActiveEmails($offset, $limit);
+
+        foreach ($users as $user) {
+            $mailer->sendTo($user['email'], $subject, 
+                // Un-subscribe URL
+                str_replace(SubscribeManager::PARAM_UNSUBSCRIBE_PLACEHOLDER, $this->createUrl('Subscribe:Handler@unsubscribeAction', array($user['key'])), $body)
+            );
+        }
+
+        return true;
+    }
+
     /**
      * Renders the form
      * 
@@ -53,8 +81,7 @@ final class Send extends AbstractController
             );
 
             // Subscribe manager
-            $subscribeManager = $this->getModuleService('subscribeManager');
-            $subscribeManager->mailAll(
+            $this->mailAll(
                 $this->request->getPost('subject'),
                 $body,
                 $this->request->getPost('offset'),
