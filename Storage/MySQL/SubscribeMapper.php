@@ -33,9 +33,7 @@ final class SubscribeMapper extends AbstractMapper implements SubscribeMapperInt
      */
     public function findActiveEmails($offset = 0, $limit = 0)
     {
-        $column = 'email';
-
-        $db = $this->db->select($column)
+        $db = $this->db->select(array('`email`', '`key`'))
                        ->from(self::getTableName())
                        ->whereEquals('active', '1');
 
@@ -44,7 +42,7 @@ final class SubscribeMapper extends AbstractMapper implements SubscribeMapperInt
             $db->limit($offset, $limit);
         }
 
-        return $db->queryAll($column);
+        return $db->queryAll();
     }
 
     /**
