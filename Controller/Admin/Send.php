@@ -35,8 +35,12 @@ final class Send extends AbstractController
 
         foreach ($users as $user) {
             $mailer->sendTo($user['email'], $subject, 
-                // Un-subscribe URL
-                str_replace(SubscribeManager::PARAM_UNSUBSCRIBE_PLACEHOLDER, $this->createUrl('Subscribe:Handler@unsubscribeAction', array($user['key'])), $body)
+                str_replace(
+                    SubscribeManager::PARAM_UNSUBSCRIBE_PLACEHOLDER, 
+                    // Un-subscribe URL
+                    $this->request->getBaseUrl() . $this->createUrl('Subscribe:Handler@unsubscribeAction', array($user['key'])), 
+                    $body
+                )
             );
         }
 
