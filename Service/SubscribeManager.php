@@ -16,7 +16,7 @@ use Subscribe\Storage\SubscribeMapperInterface;
 use Krystal\Stdlib\VirtualEntity;
 use Krystal\Text\TextUtils;
 
-final class SubscribeManager extends AbstractManager
+final class SubscribeManager extends AbstractManager implements SubscribeManagerInterface
 {
     /**
      * Any-compliant subscribe mapper
