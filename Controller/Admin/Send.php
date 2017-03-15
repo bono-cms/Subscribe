@@ -74,27 +74,59 @@ final class Send extends AbstractController
     public function sendAction()
     {
         if ($this->request->hasPost('subject', 'content')) {
-            // Configure view
-            $this->view->setModule('Subscribe')
-                       ->setTheme('site')
-                       ->disableLayout();
+            $input = $this->request->getPost();
 
-            // Prepare the body
-            $body = $this->view->render('newsletter', array(
-                'content' => $this->request->getPost('content'))
-            );
+            $formValidator = $this->createValidator(array(
+                'input' => array(
+                    'source' => $input,
+                    'definition' => array(
+                        'subject' => array(
+                            'required' => true,
+                            'rules' => array(
+                                'NotEmpty' => array(
+                                    'message' => 'The subject is required'
+                                )
+                            )
+                        ),
 
-            // Subscribe manager
-            $this->mailAll(
-                $this->request->getPost('subject'),
-                $body,
-                $this->request->getPost('offset'),
-                $this->request->getPost('limit')
-            );
+                        'content' => array(
+                            'required' => true,
+                            'rules' => array(
+                                'NotEmpty' => array(
+                                    'message' => 'The content is required'
+                                )
+                            )
+                        )
+                    )
+                )
+            ));
 
-            $this->flashBag->set('success', 'The mailing queue has been successfully processed');
+            if ($formValidator->isValid()) {
+                // Configure view
+                $this->view->setModule('Subscribe')
+                           ->setTheme('site')
+                           ->disableLayout();
+
+                // Prepare the body
+                $body = $this->view->render('newsletter', array(
+                    'content' => $this->request->getPost('content'))
+                );
+
+                // Subscribe manager
+                $this->mailAll(
+                    $this->request->getPost('subject'),
+                    $body,
+                    $this->request->getPost('offset'),
+                    $this->request->getPost('limit')
+                );
+
+                $this->flashBag->set('success', 'The mailing queue has been successfully processed');
+
+            } else {
+                return $formValidator->getErrors();
+            }
         }
 
-        return '1';
+        return 1;
     }
 }
