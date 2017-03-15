@@ -11,12 +11,3 @@ CREATE TABLE `bono_module_subscribers` (
     `key` varchar(32) NOT NULL COMMENT 'Unique key for this email. Used to confirm an email or to unsubscribe'
 	
 ) DEFAULT CHARSET=UTF8;
-
-
-DROP TABLE IF EXISTS `bono_module_subscribers_history`;
-CREATE TABLE `bono_module_subscribers_history` (
-	
-	`email` varchar(250) NOT NULL PRIMARY KEY,
-	`timestamp` INT(10) NOT NULL
-	
-) DEFAULT CHARSET=UTF8;
