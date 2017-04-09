@@ -27,6 +27,9 @@ final class Subscriber extends AbstractController
         $subscriber = $this->getModuleService('subscribeManager')->fetchById($id);
 
         if ($subscriber !== false) {
+            // Save the old email
+            $this->formAttribute->setOldAttribute('email', $subscriber->getEmail());
+
             // Append breadcrumbs
             $this->view->getBreadcrumbBag()->addOne('Subscribe', 'Subscribe:Admin:Subscriber@gridAction')
                                            ->addOne('Edit the subscriber');
@@ -118,22 +121,26 @@ final class Subscriber extends AbstractController
      */
     public function saveAction()
     {
+        $subscribeManager = $this->getModuleService('subscribeManager');
         $input = $this->request->getPost('subscriber');
+
+        $this->formAttribute->setNewAttributes($input);
+
+        // Whether email checking needs to be done
+        $hasChanged = $this->formAttribute->hasChanged('email') ? $subscribeManager->emailExists($input['email']) : false;
 
         $formValidator = $this->createValidator(array(
             'input' => array(
                 'source' => $input,
                 'definition' => array(
                     'name' => new Pattern\Name(),
-                    'email' => new Pattern\Email($this->getModuleService('subscribeManager')->emailExists($input['email']))
+                    'email' => new Pattern\Email($hasChanged)
                 )
             )
         ));
 
         if ($formValidator->isValid()) {
-            $service = $this->getModuleService('subscribeManager');
-
-            if ($service->update($input)) {
+            if ($subscribeManager->update($input)) {
                 $this->flashBag->set('success', 'The element has been updated successfully');
                 return '1';
             }
