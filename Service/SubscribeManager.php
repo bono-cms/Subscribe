@@ -15,6 +15,7 @@ use Cms\Service\AbstractManager;
 use Subscribe\Storage\SubscribeMapperInterface;
 use Krystal\Stdlib\VirtualEntity;
 use Krystal\Text\TextUtils;
+use Krystal\Date\TimeHelper;
 
 final class SubscribeManager extends AbstractManager implements SubscribeManagerInterface
 {
@@ -204,7 +205,7 @@ final class SubscribeManager extends AbstractManager implements SubscribeManager
     {
         // Defaults
         $input['active'] = '0';
-        $input['timestamp'] = time();
+        $input['datetime'] = TimeHelper::getNow();
 
         return $this->subscribeMapper->insert($input);
     }
