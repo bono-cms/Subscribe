@@ -1,7 +1,7 @@
-<?php defined('KRYSTAL') or die; ?>
 <?php
 
 use Krystal\Form\Element;
+defined('KRYSTAL') or die;
 
 ?>
 <form data-group="subscriber">
@@ -29,13 +29,12 @@ use Krystal\Form\Element;
 		</div>
 	</div>
 
-    <?php if ($subscriber->getId()): ?>
-	<button class="btn btn-primary" data-button="save" data-url="<?php echo $this->url('Subscribe:Admin:Subscriber@saveAction'); ?>"><i class="glyphicon glyphicon-floppy-save"></i> <?php $this->show('Save'); ?></button>
-    <?php else: ?>
-	<button class="btn btn-primary" data-button="add" data-back-url="<?php echo $this->url('Subscribe:Admin:Subscriber@editAction', null); ?>" data-url="<?php echo $this->url('Subscribe:Admin:Subscriber@saveAction'); ?>"><i class="glyphicon glyphicon-floppy-save"></i> <?php $this->show('Add'); ?></button>
-    
-    <?php endif; ?>
-    
-	<button data-button="cancel" data-url="<?php echo $this->url('Subscribe:Admin:Subscriber@gridAction'); ?>" class="btn btn-default"><i class="glyphicon glyphicon-floppy-open"></i> <?php $this->show('Cancel'); ?></button>
+    <?php $this->loadPartial('actions', array(
+        'new' => !$subscriber->getId(),
+        'add' => 'Subscribe:Admin:Subscriber@addAction',
+        'edit' => 'Subscribe:Admin:Subscriber@editAction',
+        'save' => 'Subscribe:Admin:Subscriber@saveAction',
+        'cancel' => 'Subscribe:Admin:Subscriber@gridAction'
+    )); ?>
 
 </form>
