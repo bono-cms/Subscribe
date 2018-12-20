@@ -1,7 +1,10 @@
-<?php defined('KRYSTAL') or die; ?>
 <?php
 
+use Krystal\Grid\Grid;
 use Krystal\Form\Element;
+use Cms\View\Icon;
+
+defined('KRYSTAL') or die;
 
 ?>
 
@@ -11,15 +14,12 @@ use Krystal\Form\Element;
 		<span class="glyphicon glyphicon-list"></span> <?php echo $this->translate('Menu'); ?> <span class="caret"></span>
 	  </button>
 	  <ul class="dropdown-menu">
-         
          <?php if (!empty($subscribers)): ?>
 		 <li><a href="<?php echo $this->url('Subscribe:Admin:Send@indexAction'); ?>"><i class="glyphicon glyphicon-envelope"></i> <?php $this->show('New bulk-sending'); ?></a></li>
          <?php else: ?>
 		 <li class="disabled"><a><i class="glyphicon glyphicon-envelope"></i> <?php $this->show('New bulk-sending'); ?></a></li>
          <?php endif; ?>
-         
 		 <li class="divider"></li>
-         
          <?php if (!empty($subscribers)): ?>
 		 <li><a href="#" data-button="save-changes" data-url="<?php echo $this->url('Subscribe:Admin:Subscriber@tweakAction'); ?>"><i class="glyphicon glyphicon-floppy-save"></i> <?php $this->show('Save changes'); ?></a></li>
 		 <li><a href="#" data-button="remove-selected" data-url="<?php echo $this->url('Subscribe:Admin:Subscriber@deleteAction', null); ?>"><i class="glyphicon glyphicon-remove"></i> <?php $this->show('Remove selected'); ?></a></li>
@@ -34,46 +34,55 @@ use Krystal\Form\Element;
 <?php $this->loadPartial('items-per-page', array('caption' => 'Subscribers')); ?>
 
 <form>
-	<table class="table table-hover table-bordered table-striped table-condensed">
-		<thead>
-			<tr>
-				<th class="text-center">
-                    <?php if (!empty($subscribers)): ?>
-                    <input type="checkbox" />
-                    <?php endif; ?>
-                </th>
-				<th class="text-center"><?php $this->show('#'); ?></th>
-				<th class="text-center"><?php $this->show('Name'); ?></th>
-				<th class="text-center"><?php $this->show('Email'); ?></th>
-				<th class="text-center"><?php $this->show('Active'); ?></th>
-				<th class="text-center"><?php $this->show('Date and time'); ?></th>
-				<th class="text-center"><?php $this->show('Actions'); ?></th>
-			</tr>
-		</thead>
-		<?php if (!empty($subscribers)): ?>
-		<tbody>
-			<?php foreach ($subscribers as $subscriber): ?>
-			<tr>
-				<td class="text-center">
-                    <input type="checkbox" name="toDelete[<?php echo $subscriber->getId(); ?>]" />
-                </td>
-				<td class="text-center text-muted"><?php echo $subscriber->getId(); ?></td>
-				<td class="text-center"><?php echo $subscriber->getName(); ?></td>
-				<td class="text-center"><?php echo $subscriber->getEmail(); ?></td>
-				<td class="text-center">
-					<?php echo Element::checkbox(sprintf('active[%s]', $subscriber->getId()), $subscriber->getActive()); ?>
-				</td>
-				<td class="text-center"><?php echo $subscriber->getDatetime(); ?></td>
-				<td class="text-center">
-                    <a data-button="edit" href="<?php echo $this->url('Subscribe:Admin:Subscriber@editAction', $subscriber->getId()); ?>" data-toggle="tooltip" data-placement="left" data-original-title="<?php $this->show('Edit this subscriber'); ?>"><i class="glyphicon glyphicon-pencil"></i></a>
-					<a data-button="delete" data-url="<?php echo $this->url('Subscribe:Admin:Subscriber@deleteAction', $subscriber->getId()); ?>" data-toggle="tooltip" data-placement="left" data-original-title="<?php $this->show('Remove this subscriber'); ?>" href="#"><i class="glyphicon glyphicon-remove"></i></a>
-				</td>
-			</tr>
-			<?php endforeach; ?>
-		</tbody>
-		<?php endif; ?>
-	</table>
+    <?= Grid::render($subscribers, array(
+        'batch' => true,
+        'pk' => 'id',
+        'tableClass' => 'table table-hover table-bordered table-striped table-condensed',
+        'columns' => array(
+            array(
+                'column' => 'id',
+                'label' => '#'
+            ),
 
+            array(
+                'column' => 'name'
+            ),
+
+            array(
+                'column' => 'email'
+            ),
+
+            array(
+                'column' => 'active',
+                'value' => function($subscriber){
+                    return Element::checkbox(sprintf('active[%s]', $subscriber->getId()), $subscriber->getActive());
+                }
+            ),
+
+            array(
+                'column' => 'datetime',
+                'label' => 'Date and time'
+            )
+        ),
+
+        'actions' => array(
+            'edit' => function($subscriber){
+                return Icon::edit(
+                    $this->url('Subscribe:Admin:Subscriber@editAction', $subscriber->getId()),
+                    $this->translate('Edit this subscriber')
+                );
+            },
+
+            'remove' => function($subscriber){
+                return Icon::remove(
+                    $this->url('Subscribe:Admin:Subscriber@deleteAction', $subscriber->getId()),
+                    $this->translate('Remove this subscriber')
+                );
+            }
+        )
+
+    ), $this->translator); ?>
+    
     <?php if (empty($subscribers)): ?>
     <div class="center-block">
         <h2 class="text-center text-muted"><i class="glyphicon glyphicon-remove"></i> <?php $this->show('You have no subscribers'); ?></h2>
