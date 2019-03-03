@@ -1,6 +1,6 @@
 <?php
 
-use Krystal\Widget\GridWidget;
+use Krystal\Widget\GridView\GridViewWidget;
 use Krystal\Form\Element;
 use Cms\View\Icon;
 
@@ -34,7 +34,7 @@ defined('KRYSTAL') or die;
 <?php $this->loadPartial('items-per-page', array('caption' => 'Subscribers')); ?>
 
 <form>
-    <?= $this->widget(new GridWidget($subscribers, array(
+    <?= $this->widget(new GridViewWidget($subscribers, array(
         'batch' => true,
         'pk' => 'id',
         'tableClass' => 'table table-hover table-bordered table-striped table-condensed',
