@@ -8,86 +8,90 @@ defined('KRYSTAL') or die;
 
 ?>
 
-<div class="btn-toolbar">
-	<div class="btn-group">
-	  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-		<span class="glyphicon glyphicon-list"></span> <?php echo $this->translate('Menu'); ?> <span class="caret"></span>
-	  </button>
-	  <ul class="dropdown-menu">
-         <?php if (!empty($subscribers)): ?>
-		 <li><a href="<?php echo $this->url('Subscribe:Admin:Send@indexAction'); ?>"><i class="glyphicon glyphicon-envelope"></i> <?php $this->show('New bulk-sending'); ?></a></li>
-         <?php else: ?>
-		 <li class="disabled"><a><i class="glyphicon glyphicon-envelope"></i> <?php $this->show('New bulk-sending'); ?></a></li>
-         <?php endif; ?>
-		 <li class="divider"></li>
-         <?php if (!empty($subscribers)): ?>
-		 <li><a href="#" data-button="save-changes" data-url="<?php echo $this->url('Subscribe:Admin:Subscriber@tweakAction'); ?>"><i class="glyphicon glyphicon-floppy-save"></i> <?php $this->show('Save changes'); ?></a></li>
-		 <li><a href="#" data-button="remove-selected" data-url="<?php echo $this->url('Subscribe:Admin:Subscriber@deleteAction', null); ?>"><i class="glyphicon glyphicon-remove"></i> <?php $this->show('Remove selected'); ?></a></li>
-         <?php else: ?>
-		 <li class="disabled"><a><i class="glyphicon glyphicon-floppy-save"></i> <?php $this->show('Save changes'); ?></a></li>
-		 <li class="disabled"><a><i class="glyphicon glyphicon-remove"></i> <?php $this->show('Remove selected'); ?></a></li>
-         <?php endif; ?>
-	  </ul>
-	</div>
-</div>
+<div class="card">
+    <div class="btn-toolbar">
+        <div class="dropdown">
+          <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+            <span class="glyphicon glyphicon-list"></span> <?php echo $this->translate('Menu'); ?>
+          </button>
 
-<?php $this->loadPartial('items-per-page', array('caption' => 'Subscribers')); ?>
-
-<form>
-    <?= $this->widget(new GridViewWidget($subscribers, array(
-        'batch' => true,
-        'pk' => 'id',
-        'tableClass' => 'table table-hover table-bordered table-striped table-condensed',
-        'columns' => array(
-            array(
-                'column' => 'id',
-                'label' => '#'
-            ),
-
-            array(
-                'column' => 'name'
-            ),
-
-            array(
-                'column' => 'email'
-            ),
-
-            array(
-                'column' => 'active',
-                'value' => function($subscriber){
-                    return Element::checkbox(sprintf('active[%s]', $subscriber->getId()), $subscriber->getActive());
-                }
-            ),
-
-            array(
-                'column' => 'datetime',
-                'label' => 'Date and time'
-            )
-        ),
-
-        'actions' => array(
-            'edit' => function($subscriber){
-                return Icon::edit(
-                    $this->url('Subscribe:Admin:Subscriber@editAction', $subscriber->getId()),
-                    $this->translate('Edit this subscriber')
-                );
-            },
-
-            'remove' => function($subscriber){
-                return Icon::remove(
-                    $this->url('Subscribe:Admin:Subscriber@deleteAction', $subscriber->getId()),
-                    $this->translate('Remove this subscriber')
-                );
-            }
-        )
-    ))); ?>
-
-    <?php if (empty($subscribers)): ?>
-    <div class="center-block">
-        <h2 class="text-center text-muted"><i class="glyphicon glyphicon-remove"></i> <?php $this->show('You have no subscribers'); ?></h2>
+          <div class="dropdown-menu">
+             <?php if (!empty($subscribers)): ?>
+             <a class="dropdown-item" href="<?php echo $this->url('Subscribe:Admin:Send@indexAction'); ?>"><i class="glyphicon glyphicon-envelope"></i> <?php $this->show('New bulk-sending'); ?></a>
+             <?php else: ?>
+             <a class="dropdown-item disabled"><i class="glyphicon glyphicon-envelope"></i> <?php $this->show('New bulk-sending'); ?></a>
+             <?php endif; ?>
+             <div class="dropdown-divider"></div>
+             <?php if (!empty($subscribers)): ?>
+             <a class="dropdown-item" href="#" data-button="save-changes" data-url="<?php echo $this->url('Subscribe:Admin:Subscriber@tweakAction'); ?>"><i class="glyphicon glyphicon-floppy-save"></i> <?php $this->show('Save changes'); ?></a>
+             <a class="dropdown-item" href="#" data-button="remove-selected" data-url="<?php echo $this->url('Subscribe:Admin:Subscriber@deleteAction', null); ?>"><i class="glyphicon glyphicon-remove"></i> <?php $this->show('Remove selected'); ?></a>
+             <?php else: ?>
+             <a class="dropdown-item disabled"><i class="glyphicon glyphicon-floppy-save"></i> <?php $this->show('Save changes'); ?></a>
+             <a class="dropdown-item disabled"><i class="glyphicon glyphicon-remove"></i> <?php $this->show('Remove selected'); ?></a>
+             <?php endif; ?>
+          </div>
+        </div>
     </div>
-    <?php endif; ?>
 
-</form>
+    <?php $this->loadPartial('items-per-page', array('caption' => 'Subscribers')); ?>
 
-<?php $this->loadPartial('paginator'); ?>
+    <form>
+        <?= $this->widget(new GridViewWidget($subscribers, array(
+            'batch' => true,
+            'pk' => 'id',
+            'tableClass' => 'table table-hover table-bordered table-striped',
+            'columns' => array(
+                array(
+                    'column' => 'id',
+                    'label' => '#'
+                ),
+
+                array(
+                    'column' => 'name'
+                ),
+
+                array(
+                    'column' => 'email'
+                ),
+
+                array(
+                    'column' => 'active',
+                    'value' => function($subscriber){
+                        return Element::checkbox(sprintf('active[%s]', $subscriber->getId()), $subscriber->getActive());
+                    }
+                ),
+
+                array(
+                    'column' => 'datetime',
+                    'label' => 'Date and time'
+                )
+            ),
+
+            'actions' => array(
+                'edit' => function($subscriber){
+                    return Icon::edit(
+                        $this->url('Subscribe:Admin:Subscriber@editAction', $subscriber->getId()),
+                        $this->translate('Edit this subscriber')
+                    );
+                },
+
+                'remove' => function($subscriber){
+                    return Icon::remove(
+                        $this->url('Subscribe:Admin:Subscriber@deleteAction', $subscriber->getId()),
+                        $this->translate('Remove this subscriber')
+                    );
+                }
+            )
+        ))); ?>
+
+        <?php if (empty($subscribers)): ?>
+        <div class="center-block">
+            <h2 class="text-center text-muted"><i class="glyphicon glyphicon-remove"></i> <?php $this->show('You have no subscribers'); ?></h2>
+        </div>
+        <?php endif; ?>
+
+    </form>
+
+    <?php $this->loadPartial('paginator'); ?>
+
+</div>
