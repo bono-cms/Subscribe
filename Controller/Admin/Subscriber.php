@@ -32,7 +32,7 @@ final class Subscriber extends AbstractController
 
             // Append breadcrumbs
             $this->view->getBreadcrumbBag()->addOne('Subscribe', 'Subscribe:Admin:Subscriber@gridAction')
-                                           ->addOne('Edit the subscriber');
+                                           ->addOne($this->translator->translate('Edit the subscriber "%s"', $subscriber->getName()));
 
             return $this->view->render('form', array(
                 'subscriber' => $subscriber
