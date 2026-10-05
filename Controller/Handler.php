@@ -3,8 +3,6 @@
 /**
  * This file is part of the Bono CMS
  * 
- * Copyright (c) No Global State Lab
- * 
  * For the full copyright and license information, please view
  * the license file that was distributed with this source code.
  */
@@ -12,7 +10,6 @@
 namespace Subscribe\Controller;
 
 use Site\Controller\AbstractController;
-use Krystal\Validate\Pattern;
 
 final class Handler extends AbstractController
 {
@@ -43,10 +40,10 @@ final class Handler extends AbstractController
     {
         $service = $this->getModuleService('subscribeManager');
 
-        return $this->createMessage('confirmation', array(
+        return $this->createMessage('confirmation', [
             'success' => $service->confirmUser($key),
             'message' => 'Thank you! You have successfully confirmed your email'
-        ));
+        ]);
     }
 
     /**
@@ -62,26 +59,19 @@ final class Handler extends AbstractController
             // If name isn't provided, use empty name
             if (!isset($data['name'])) {
                 $data['name'] = '';
-
-                $rules = array(
-                    'email' => new Pattern\Email(),
-                );
-            } else {
-                $rules = array(
-                    'email' => new Pattern\Email(),
-                    'name' => new Pattern\Name()
-                );
             }
 
-            // Create form validator
-            $formValidator = $this->createValidator(array(
-                'input' => array(
-                    'source' => $data,
-                    'definition' => $rules
-                )
-            ));
+            $validator = $this->createValidation();
 
-            if ($formValidator->isValid()) {
+            $validator->field('email')
+                      ->required()
+                      ->addRule('email');
+
+            $validator->field('name')
+                      ->required(null, isset($data['name']))
+                      ->addRule('minlength', null, ['min' => 2]);
+
+            if ($validator->isPassed()) {
                 $service = $this->getModuleService('subscribeManager');
 
                 // Prepare common variables
@@ -92,40 +82,42 @@ final class Handler extends AbstractController
                     $url = $this->request->getBaseUrl();
                     $subject = $this->translator->translate('Confirm your email');
 
-                    $message = $this->createMessage('subscribe', array(
+                    $message = $this->createMessage('subscribe', [
                         'name' => $data['name'],
                         'site' => $url,
-                        'link' => $url.$this->createUrl('Subscribe:Handler@confirmAction', array($key))
-                    ));
+                        'link' => $url.$this->createUrl('Subscribe:Handler@confirmAction', [$key])
+                    ]);
 
                     // Send e-mail notification now
                     $mailer = $this->getService('Cms', 'mailer');
                     $mailer->sendTo($data['email'], $subject, $message);
 
                     // Successfully sent a request to news letters
-                    $output = array(
+                    $output = [
                         'code' => '1',
                         'message' => $this->translator->translate('Thanks for subscription. Please now check your email to confirm your identity')
-                    );
+                    ];
 
                 } else {
                     // Email already exists
-                    $output = array(
+                    $output = [
                         'code' => '0',
                         'message' => $this->translator->translate('Email already exists')
-                    );
+                    ];
                 }
 
-                return json_encode($output);
+                return $this->json($output);
 
             } else {
-                return $formValidator->getErrors();
+                return $this->json([
+                    'errors' => $validator->getErrors()
+                ]);
             }
         }
     }
 
     /**
-     * Unsubsribes a user by their email address
+     * Unsubscribes a user by their email address
      * 
      * @param string $key
      * @return string
@@ -134,9 +126,9 @@ final class Handler extends AbstractController
     {
         $service = $this->getModuleService('subscribeManager');
 
-        return $this->createMessage('confirmation', array(
+        return $this->createMessage('confirmation', [
             'success' => $service->unsubscribe($key),
             'message' => 'You have successfully unsubscribed from our mailing list'
-        ));
+        ]);
     }
 }

@@ -3,55 +3,53 @@
 /**
  * This file is part of the Bono CMS
  * 
- * Copyright (c) No Global State Lab
- * 
  * For the full copyright and license information, please view
  * the license file that was distributed with this source code.
  */
 
-return array(
+return [
     
-    '/module/subscribe/subscribe' => array(
+    '/module/subscribe/subscribe' => [
         'controller' => 'Handler@subcribeAction'
-    ),
+    ],
 
-    '/module/subscribe/confirm/(:var)' => array(
+    '/module/subscribe/confirm/(:var)' => [
         'controller' => 'Handler@confirmAction'
-    ),
+    ],
     
-    '/module/subscribe/unsubscribe/(:var)' => array(
+    '/module/subscribe/unsubscribe/(:var)' => [
         'controller' => 'Handler@unsubscribeAction'
-    ),
+    ],
     
-    '/%s/module/subscribe' => array(
+    '/%s/module/subscribe' => [
         'controller' => 'Admin:Subscriber@gridAction'
-    ),
+    ],
     
-    '/%s/module/subscribe/page/(:var)' => array(
+    '/%s/module/subscribe/page/(:var)' => [
         'controller' => 'Admin:Subscriber@gridAction'
-    ),
+    ],
     
-    '/%s/module/subscribe/tweak' => array(
+    '/%s/module/subscribe/tweak' => [
         'controller' => 'Admin:Subscriber@tweakAction'
-    ),
+    ],
     
-    '/%s/module/subscribe/edit/(:var)' => array(
+    '/%s/module/subscribe/edit/(:var)' => [
         'controller' => 'Admin:Subscriber@editAction'
-    ),
+    ],
     
-    '/%s/module/subscribe/save' => array(
+    '/%s/module/subscribe/save' => [
         'controller' => 'Admin:Subscriber@saveAction'
-    ),
+    ],
     
-    '/%s/module/subscribe/send' => array(
+    '/%s/module/subscribe/send' => [
         'controller' => 'Admin:Send@indexAction'
-    ),
+    ],
 
-    '/%s/module/subscribe/send.ajax' => array(
+    '/%s/module/subscribe/send.ajax' => [
         'controller' => 'Admin:Send@sendAction'
-    ),
+    ],
     
-    '/%s/module/subscribe/delete/(:var)' => array(
+    '/%s/module/subscribe/delete/(:var)' => [
         'controller' => 'Admin:Subscriber@deleteAction'
-    )
-);
+    ]
+];

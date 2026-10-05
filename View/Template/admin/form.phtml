@@ -6,33 +6,37 @@ defined('KRYSTAL') or die;
 ?>
 
 <form class="card" data-group="subscriber" autocomplete="off">
-    <?php echo Element::hidden('subscriber[id]', $subscriber->getId()); ?>
+    <?= Element::hidden('subscriber[id]', $subscriber->getId()); ?>
 
-    <div class="form-group">
-        <label class="col-lg-2 control-label"><?php $this->show('Name'); ?></label>
+    <div class="form-group row">
+        <label class="col-lg-2 col-form-label"><?= $this->translate('Name'); ?></label>
         <div class="col-lg-10">
             <div class="input-group">
-                <?php echo Element::text('subscriber[name]', $subscriber->getName(), array('class' => 'form-control', 'placeholder' => $this->translate('Type person name'))); ?>
-                <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                <?= Element::text('subscriber[name]', $subscriber->getName(), ['class' => 'form-control', 'placeholder' => $this->translate('Type person name')]); ?>
+                <div class="input-group-append">
+                    <span class="input-group-text"><i class="bi bi-pencil"></i></span>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="form-group">
-        <label class="col-lg-2 control-label"><?php $this->show('Email'); ?></label>
+    <div class="form-group row">
+        <label class="col-lg-2 col-form-label"><?= $this->translate('Email'); ?></label>
         <div class="col-lg-10">
             <div class="input-group">
-                <?php echo Element::text('subscriber[email]', $subscriber->getEmail(), array('class' => 'form-control', 'placeholder' => $this->translate('Type their associated email'))); ?>
-                <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                <?= Element::text('subscriber[email]', $subscriber->getEmail(), ['class' => 'form-control', 'placeholder' => $this->translate('Type their associated email')]); ?>
+                <div class="input-group-append">
+                    <span class="input-group-text"><i class="bi bi-pencil"></i></span>
+                </div>
             </div>
         </div>
     </div>
 
-    <?php $this->loadPartial('actions', array(
+    <?php $this->loadPartial('actions', [
         'new' => !$subscriber->getId(),
         'add' => 'Subscribe:Admin:Subscriber@addAction',
         'edit' => 'Subscribe:Admin:Subscriber@editAction',
         'save' => 'Subscribe:Admin:Subscriber@saveAction',
         'cancel' => 'Subscribe:Admin:Subscriber@gridAction'
-    )); ?>
+    ]); ?>
 </form>

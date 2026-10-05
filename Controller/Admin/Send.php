@@ -3,8 +3,6 @@
 /**
  * This file is part of the Bono CMS
  * 
- * Copyright (c) No Global State Lab
- * 
  * For the full copyright and license information, please view
  * the license file that was distributed with this source code.
  */
@@ -38,7 +36,7 @@ final class Send extends AbstractController
                 str_replace(
                     SubscribeManager::PARAM_UNSUBSCRIBE_PLACEHOLDER, 
                     // Un-subscribe URL
-                    $this->request->getBaseUrl() . $this->createUrl('Subscribe:Handler@unsubscribeAction', array($user['key'])), 
+                    $this->request->getBaseUrl() . $this->createUrl('Subscribe:Handler@unsubscribeAction', [$user['key']]), 
                     $body
                 )
             );
@@ -56,14 +54,14 @@ final class Send extends AbstractController
     {
         // Load view plugins
         $this->view->getPluginBag()
-                   ->load(array($this->getWysiwygPluginName()));
+                   ->load([$this->getWysiwygPluginName()]);
 
         // Append breadcrumbs
         $this->view->getBreadcrumbBag()->addOne('Subscribe', 'Subscribe:Admin:Subscriber@gridAction')
                                        ->addOne('New bulk-sending');
 
-        return $this->view->render('send', array(
-        ));
+        return $this->view->render('send', [
+        ]);
     }
 
     /**
@@ -76,40 +74,23 @@ final class Send extends AbstractController
         if ($this->request->hasPost('subject', 'content')) {
             $input = $this->request->getPost();
 
-            $formValidator = $this->createValidator(array(
-                'input' => array(
-                    'source' => $input,
-                    'definition' => array(
-                        'subject' => array(
-                            'required' => true,
-                            'rules' => array(
-                                'NotEmpty' => array(
-                                    'message' => 'The subject is required'
-                                )
-                            )
-                        ),
+            $validator = $this->createValidation();
 
-                        'content' => array(
-                            'required' => true,
-                            'rules' => array(
-                                'NotEmpty' => array(
-                                    'message' => 'The content is required'
-                                )
-                            )
-                        )
-                    )
-                )
-            ));
+            $validator->field('subject')
+                      ->required();
 
-            if ($formValidator->isValid()) {
+            $validator->field('content')
+                      ->required();
+
+            if ($validator->isPassed()) {
                 // Configure view
                 $this->view->setModule('Subscribe')
                            ->setTheme('site')
                            ->disableLayout();
 
                 // Prepare the body
-                $body = $this->view->render('newsletter', array(
-                    'content' => $this->request->getPost('content'))
+                $body = $this->view->render('newsletter', [
+                    'content' => $this->request->getPost('content')]
                 );
 
                 // Subscribe manager
@@ -123,10 +104,14 @@ final class Send extends AbstractController
                 $this->flashBag->set('success', 'The mailing queue has been successfully processed');
 
             } else {
-                return $formValidator->getErrors();
+                return $this->json([
+                    'errors' => $validator->getErrors()
+                ]);
             }
         }
 
-        return 1;
+        return $this->json([
+            'refresh' => true
+        ]);
     }
 }

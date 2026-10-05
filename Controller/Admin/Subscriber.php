@@ -3,8 +3,6 @@
 /**
  * This file is part of the Bono CMS
  * 
- * Copyright (c) No Global State Lab
- * 
  * For the full copyright and license information, please view
  * the license file that was distributed with this source code.
  */
@@ -12,7 +10,6 @@
 namespace Subscribe\Controller\Admin;
 
 use Cms\Controller\Admin\AbstractController;
-use Krystal\Validate\Pattern;
 
 final class Subscriber extends AbstractController
 {
@@ -34,9 +31,9 @@ final class Subscriber extends AbstractController
             $this->view->getBreadcrumbBag()->addOne('Subscribe', 'Subscribe:Admin:Subscriber@gridAction')
                                            ->addOne($this->translator->translate('Edit the subscriber "%s"', $subscriber->getName()));
 
-            return $this->view->render('form', array(
+            return $this->view->render('form', [
                 'subscriber' => $subscriber
-            ));
+            ]);
 
         } else {
             return false;
@@ -58,7 +55,10 @@ final class Subscriber extends AbstractController
             $subscribeManager->updateActiveStates($states);
 
             $this->flashBag->set('success', 'Settings have been updated successfully');
-            return '1';
+
+            return $this->json([
+                'refresh' => true
+            ]);
         }
     }
 
@@ -77,12 +77,12 @@ final class Subscriber extends AbstractController
         $subscribeManager = $this->getModuleService('subscribeManager');
 
         $paginator = $subscribeManager->getPaginator();
-        $paginator->setUrl($this->createUrl('Subscribe:Admin:Subscriber@gridAction', array(), 1));
+        $paginator->setUrl($this->createUrl('Subscribe:Admin:Subscriber@gridAction', [], 1));
 
-        return $this->view->render('browser', array(
+        return $this->view->render('browser', [
             'subscribers' => $subscribeManager->fetchAllByPage($page, $this->getSharedPerPageCount()),
             'paginator' => $paginator
-        ));
+        ]);
     }
 
     /**
@@ -111,7 +111,9 @@ final class Subscriber extends AbstractController
             $this->flashBag->set('success', 'Selected element has been removed successfully');
         }
 
-        return '1';
+        return $this->json([
+            'refresh' => true
+        ]);
     }
 
     /**
@@ -127,26 +129,36 @@ final class Subscriber extends AbstractController
         $this->formAttribute->setNewAttributes($input);
 
         // Whether email checking needs to be done
-        $hasChanged = $this->formAttribute->hasChanged('email') ? $subscribeManager->emailExists($input['email']) : false;
+        $emailTaken = $this->formAttribute->hasChanged('email') ? $subscribeManager->emailExists($input['email']) : false;
 
-        $formValidator = $this->createValidator(array(
-            'input' => array(
-                'source' => $input,
-                'definition' => array(
-                    'name' => new Pattern\Name(),
-                    'email' => new Pattern\Email($hasChanged)
-                )
-            )
-        ));
+        $validator = $this->createValidation();
 
-        if ($formValidator->isValid()) {
+        $validator->setFieldRule('unique_email', function($value) use ($emailTaken) {
+            return !$emailTaken;
+        }, 'This email is already taken');
+
+        $validator->field('subscriber.name')
+                  ->required()
+                  ->addRule('minlength', null, ['min' => 2]);
+
+        $validator->field('subscriber.email')
+                  ->required()
+                  ->addRule('email')
+                  ->addRule('unique_email');
+
+        if ($validator->isPassed()) {
             if ($subscribeManager->update($input)) {
                 $this->flashBag->set('success', 'The element has been updated successfully');
-                return '1';
+
+                return $this->json([
+                    'refresh' => true
+                ]);
             }
 
         } else {
-            return $formValidator->getErrors();
+            return $this->json([
+                'errors' => $validator->getErrors()
+            ]);
         }
     }
 }

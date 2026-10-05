@@ -9,74 +9,72 @@ defined('KRYSTAL') or die;
 ?>
 
 <div class="btn-toolbar">
-    <?php $this->loadPartial('menu', array(
-        'items' => array(
+    <?php $this->loadPartial('menu', [
+        'items' => [
             'Subscribe:Admin:Send@indexAction' => 'New bulk-sending'
-        ),
-        'actions' => array(
+        ],
+        'actions' => [
             'data' => $subscribers,
             'save' => 'Subscribe:Admin:Subscriber@tweakAction',
             'delete' => 'Subscribe:Admin:Subscriber@deleteAction'
-        )
-    )); ?>
+        ]
+    ]); ?>
 </div>
 
 <div class="card">
-    <?php $this->loadPartial('items-per-page', array('caption' => 'Subscribers')); ?>
+    <?php $this->loadPartial('items-per-page', ['caption' => 'Subscribers']); ?>
 
     <form>
-        <?= $this->widget(new GridViewWidget($subscribers, array(
+        <?= $this->widget(new GridViewWidget($subscribers, [
             'batch' => true,
             'pk' => 'id',
             'tableClass' => 'table table-hover table-bordered table-striped',
-            'columns' => array(
-                array(
+            'columns' => [
+                [
                     'column' => 'id',
                     'label' => '#'
-                ),
+                ],
 
-                array(
+                [
                     'column' => 'name'
-                ),
+                ],
 
-                array(
+                [
                     'column' => 'email'
-                ),
+                ],
 
-                array(
+                [
                     'column' => 'active',
                     'value' => function($subscriber){
                         return Element::checkbox(sprintf('active[%s]', $subscriber->getId()), $subscriber->getActive());
                     }
-                ),
+                ],
 
-                array(
+                [
                     'column' => 'datetime',
                     'label' => 'Date and time'
-                )
-            ),
+                ]
+            ],
 
-            'actions' => array(
-                'edit' => function($subscriber){
+            'actions' => [
+                function($subscriber){
                     return Icon::edit(
                         $this->url('Subscribe:Admin:Subscriber@editAction', $subscriber->getId()),
                         $this->translate('Edit this subscriber')
                     );
                 },
 
-                'remove' => function($subscriber){
+                function($subscriber){
                     return Icon::remove(
                         $this->url('Subscribe:Admin:Subscriber@deleteAction', $subscriber->getId()),
                         $this->translate('Remove this subscriber')
                     );
                 }
-            )
-        ))); ?>
+            ]
+        ])); ?>
 
         <?php if (empty($subscribers)): ?>
-        <div class="center-block">
-            <h2 class="text-center text-muted"><i class="glyphicon glyphicon-remove"></i> <?php $this->show('You have no subscribers'); ?></h2>
-        </div>
+        <h2 class="text-center text-muted"><i class="bi bi-x"></i> <?= $this->translate('You have no subscribers'); ?></h2>
         <?php endif; ?>
 
     </form>

@@ -3,8 +3,6 @@
 /**
  * This file is part of the Bono CMS
  * 
- * Copyright (c) No Global State Lab
- * 
  * For the full copyright and license information, please view
  * the license file that was distributed with this source code.
  */
@@ -33,7 +31,7 @@ final class SubscribeMapper extends AbstractMapper implements SubscribeMapperInt
      */
     public function findActiveEmails($offset = 0, $limit = 0)
     {
-        $db = $this->db->select(array('`email`', '`key`'))
+        $db = $this->db->select(['`email`', '`key`'])
                        ->from(self::getTableName())
                        ->whereEquals('active', '1');
 
@@ -71,7 +69,7 @@ final class SubscribeMapper extends AbstractMapper implements SubscribeMapperInt
      */
     private function updateByEmail($email, $column, $value)
     {
-        return $this->db->update(self::getTableName(), array($column => $value))
+        return $this->db->update(self::getTableName(), [$column => $value])
                         ->whereEquals('email', $email)
                         ->execute();
     }
