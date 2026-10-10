@@ -2,47 +2,40 @@
 
 use Krystal\Form\Element;
 
-defined('KRYSTAL') or die;
 ?>
 
-<form class="card" autocomplete="off">
-    <div class="form-group row">
+<form class="card card-body" autocomplete="off">
+    <div class="row mb-3">
         <label class="col-lg-2 col-form-label"><?= $this->translate('Subject'); ?></label>
         <div class="col-lg-10">
             <div class="input-group">
                 <?= Element::text('subject', null, ['class' => 'form-control', 'placeholder' => $this->translate('Type the subject')]); ?>
-                <div class="input-group-append">
-                    <span class="input-group-text"><i class="bi bi-pencil"></i></span>
-                </div>
+                <span class="input-group-text"><i class="bi bi-pencil"></i></span>
             </div>
         </div>
     </div>
 
-    <div class="form-group row">
+    <div class="row mb-3">
         <label class="col-lg-2 col-form-label"><?= $this->translate('Offset'); ?></label>
         <div class="col-lg-10">
             <div class="input-group">
                 <?= Element::text('offset', null, ['class' => 'form-control', 'placeholder' => $this->translate('Starting mailing from (record number)')]); ?>
-                <div class="input-group-append">
-                    <span class="input-group-text"><i class="bi bi-pencil"></i></span>
-                </div>
+                <span class="input-group-text"><i class="bi bi-pencil"></i></span>
             </div>
         </div>
     </div>
 
-    <div class="form-group row">
+    <div class="row mb-3">
         <label class="col-lg-2 col-form-label"><?= $this->translate('Limit'); ?></label>
         <div class="col-lg-10">
             <div class="input-group">
                 <?= Element::text('limit', null, ['class' => 'form-control', 'placeholder' => $this->translate('End mailing at (record number)')]); ?>
-                <div class="input-group-append">
-                    <span class="input-group-text"><i class="bi bi-pencil"></i></span>
-                </div>
+                <span class="input-group-text"><i class="bi bi-pencil"></i></span>
             </div>
         </div>
     </div>
     
-    <div class="form-group row">
+    <div class="row mb-3">
         <label class="col-lg-2 col-form-label"><?= $this->translate('Content'); ?></label>
         <div class="col-lg-10">
             <?= Element::textarea('content', null, ['class' => 'form-control']); ?>

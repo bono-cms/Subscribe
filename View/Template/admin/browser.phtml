@@ -4,11 +4,9 @@ use Krystal\Widget\GridView\GridViewWidget;
 use Krystal\Form\Element;
 use Cms\View\Icon;
 
-defined('KRYSTAL') or die;
-
 ?>
 
-<div class="btn-toolbar">
+<div class="btn-toolbar mb-3">
     <?php $this->loadPartial('menu', [
         'items' => [
             'Subscribe:Admin:Send@indexAction' => 'New bulk-sending'
@@ -46,7 +44,7 @@ defined('KRYSTAL') or die;
                 [
                     'column' => 'active',
                     'value' => function($subscriber){
-                        return Element::checkbox(sprintf('active[%s]', $subscriber->getId()), $subscriber->getActive());
+                        return Element::checkbox(sprintf('active[%s]', $subscriber->getId()), $subscriber->getActive(), ['class' => 'form-check-input']);
                     }
                 ],
 

@@ -1,4 +1,3 @@
-
 (function($){
     // Site subscribe handler
     $(function(){
@@ -19,7 +18,8 @@
                 success: function(response){
                     var $modal = $("#subscribe-modal");
 
-                    $modal.modal('show');
+                    // BS5: use bootstrap.Modal API instead of jQuery .modal("show")
+                    bootstrap.Modal.getOrCreateInstance($modal[0]).show();
                     $body = $modal.find(".modal-body");
 
                     // If operation completed
